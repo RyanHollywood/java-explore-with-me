@@ -4,6 +4,8 @@ services:
     image: stats-server
     ports:
       - "9090:9090"
+    depends_on:
+      - stats-db
 
   stats-db:
     image: mysql
@@ -12,6 +14,8 @@ services:
     image: ewm-service
     ports:
       - "8080:8080"
+    depends_on:
+      - ewm-db
 
   ewm-db:
     image: mysql
