@@ -6,20 +6,19 @@ services:
       dockerfile: Dockerfile-statsserver
       context: ./stats-server
     ports:
-      - "${STATS_SERVER_HOST_PORT}:${STATS_SERVER_CONTAINER_PORT}"
+      - "9090:9090"
     depends_on:
       - stats-db
 
   stats-db:
     container_name: stats-db
-    image: mariadb
+    image: postgres
     ports:
-      - "${STATS_DB_HOST_PORT}:${STATS_DB_CONTAINER_PORT}"
+      - "9091:5432"
     environment:
-      MARIADB_ROOT_PASSWORD: "${STATS_DB_ROOT_PASSWORD}"
-      MARIADB_DATABASE: "${STATS_DB_DATABASE_NAME}"
-      MARIADB_USER: "${STATS_DB_USER}"
-      MARIADB_PASSWORD: "${STATS_DB_PASSWORD}"
+      - POSTGRES_DB=stats
+      - POSTGRES_USER=stats_user
+      - POSTGRES_PASSWORD=stats_password
 
   ewm-service:
     container_name: ewm-service
@@ -27,17 +26,18 @@ services:
       dockerfile: Dockerfile-ewmservice
       context: ./ewm-service
     ports:
-      - "${EWM_SERVICE_HOST_PORT}:${EWM_SERVICE_CONTAINER_PORT}"
+      - "8080:8080"
     depends_on:
       - ewm-db
 
   ewm-db:
     container_name: ewm-db
-    image: mariadb
+    image: postgres
     ports:
-      - "${EWM_DB_HOST_PORT}:${EWM_DB_CONTAINER_PORT}"
+      - "8081:5432"
     environment:
-      MARIADB_ROOT_PASSWORD: "${EWM_DB_ROOT_PASSWORD}"
-      MARIADB_DATABASE: "${EWM_DB_DATABASE_NAME}"
-      MARIADB_USER: "${EWM_DB_USER}"
-      MARIADB_PASSWORD: "${EWM_DB_PASSWORD}"
+      - POSTGRES_DB=ewmservice
+      - POSTGRES_USER=ewmservice_user
+      - POSTGRES_PASSWORD=ewmservice_password
+    depends_on:
+      - stats-db

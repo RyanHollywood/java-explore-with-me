@@ -1,6 +1,0 @@
-${AnsiColor.BRIGHT_BLUE}
-EXPLORE WITH ME ${AnsiColor.BRIGHT_YELLOW}
-Spring Boot ${spring-boot.version}
-MySQL DB
-
-by Alex Savelev ${AnsiBackground.DEFAULT} ${AnsiColor.DEFAULT}
