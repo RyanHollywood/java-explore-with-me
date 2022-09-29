@@ -12,13 +12,14 @@ services:
 
   stats-db:
     container_name: stats-db
-    image: postgres
+    image: mariadb
     ports:
-      - "9091:5432"
+      - "9091:3306"
     environment:
-      - POSTGRES_DB=stats
-      - POSTGRES_USER=stats_user
-      - POSTGRES_PASSWORD=stats_password
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=stats
+      - MARIADB_USER=stats_user
+      - MARIADB_PASSWORD=stats_password
 
   ewm-service:
     container_name: ewm-service
@@ -32,12 +33,11 @@ services:
 
   ewm-db:
     container_name: ewm-db
-    image: postgres
+    image: mariadb
     ports:
-      - "8081:5432"
+      - "8081:3306"
     environment:
-      - POSTGRES_DB=ewmservice
-      - POSTGRES_USER=ewmservice_user
-      - POSTGRES_PASSWORD=ewmservice_password
-    depends_on:
-      - stats-db
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=ewmservice
+      - MARIADB_USER=ewmservice_user
+      - MARIADB_PASSWORD=ewmservice_password
