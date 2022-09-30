@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS hits (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    app TINYTEXT,
+    uri TINYTEXT,
+    ip TINYTEXT,
+    hit_time DATETIME,
+    PRIMARY KEY (id)
+);

@@ -1,4 +1,4 @@
-package ru.practicum.statsserver.event.model;
+package ru.practicum.statsserver.hit.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,20 +7,26 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Event {
+@Entity
+@Table(name = "hits")
+public class Hit {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column
+
+    @Column(name = "app")
     private String app;
-    @Column
+
+    @Column(name = "uri")
     private String uri;
-    @Column
+
+    @Column(name = "ip")
     private String ip;
-    @Column
+
+    @Column(name = "hit_time")
     private LocalDateTime timestamp;
 }

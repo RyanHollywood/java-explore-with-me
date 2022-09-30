@@ -1,4 +1,4 @@
-package ru.practicum.statsserver.event.dto;
+package ru.practicum.statsserver.hit.dto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
-public class EventDto {
+public class HitDto {
     private long id;
     @NotBlank
     private String app;

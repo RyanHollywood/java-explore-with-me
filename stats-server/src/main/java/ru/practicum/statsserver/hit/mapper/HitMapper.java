@@ -1,14 +1,14 @@
-package ru.practicum.statsserver.event.mapper;
+package ru.practicum.statsserver.hit.mapper;
 
-import ru.practicum.statsserver.event.dto.EventDto;
-import ru.practicum.statsserver.event.model.Event;
+import ru.practicum.statsserver.hit.dto.HitDto;
+import ru.practicum.statsserver.hit.model.Hit;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class EventMapper {
-    public static Event fromDto(EventDto eventDto) {
-        return  Event.builder()
+public class HitMapper {
+    public static Hit fromDto(HitDto eventDto) {
+        return  Hit.builder()
                 .app(eventDto.getApp())
                 .uri(eventDto.getUri())
                 .ip(eventDto.getIp())

@@ -5,23 +5,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.statsserver.event.dto.EventDto;
-import ru.practicum.statsserver.event.service.EventServiceImpl;
+import ru.practicum.statsserver.hit.dto.HitDto;
+import ru.practicum.statsserver.hit.service.HitServiceImpl;
 
 import javax.validation.Valid;
 
 @RestController
 public class StatsController {
 
-    final EventServiceImpl eventService;
+    final HitServiceImpl eventService;
 
-    public StatsController(EventServiceImpl eventService) {
+    public StatsController(HitServiceImpl eventService) {
         this.eventService = eventService;
     }
 
     @PostMapping("/hit")
-    public ResponseEntity<String> create(@Valid @RequestBody EventDto eventDto) {
-        return eventService.create(eventDto);
+    public ResponseEntity<String> create(@Valid @RequestBody HitDto hitDto) {
+        return eventService.create(hitDto);
     }
 
     @GetMapping("/stats")
