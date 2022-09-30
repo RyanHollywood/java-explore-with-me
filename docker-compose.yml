@@ -12,7 +12,7 @@ services:
 
   stats-db:
     container_name: stats-db
-    image: mariadb
+    image: mariadb:10.5
     ports:
       - "9091:3306"
     environment:
@@ -20,6 +20,11 @@ services:
       - MARIADB_DATABASE=stats
       - MARIADB_USER=stats_user
       - MARIADB_PASSWORD=stats_password
+    healthcheck:
+      test: [ "CMD", "mysql", "-u", "stats_user", "-h", "stats-db", "-pstats_password", "stats"]
+      timeout: 45s
+      interval: 10s
+      retries: 10
 
   ewm-service:
     container_name: ewm-service
@@ -33,7 +38,7 @@ services:
 
   ewm-db:
     container_name: ewm-db
-    image: mariadb
+    image: mariadb:10.5
     ports:
       - "8081:3306"
     environment:
@@ -41,3 +46,8 @@ services:
       - MARIADB_DATABASE=ewmservice
       - MARIADB_USER=ewmservice_user
       - MARIADB_PASSWORD=ewmservice_password
+    healthcheck:
+      test: [ "CMD", "mysql", "-u", "ewmservice_user", "-h", "ewm-db", "-pewmservice_password", "ewmservice"]
+      timeout: 45s
+      interval: 10s
+      retries: 10
