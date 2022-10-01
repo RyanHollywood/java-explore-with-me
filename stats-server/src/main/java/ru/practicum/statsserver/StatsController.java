@@ -1,12 +1,10 @@
 package ru.practicum.statsserver;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.statsserver.hit.dto.HitDto;
-import ru.practicum.statsserver.hit.service.HitServiceImpl;
+import org.springframework.web.bind.annotation.*;
+import ru.practicum.statsserver.dto.HitDto;
+import ru.practicum.statsserver.dto.StatsDto;
+import ru.practicum.statsserver.service.HitServiceImpl;
 
 import javax.validation.Valid;
 
@@ -25,7 +23,10 @@ public class StatsController {
     }
 
     @GetMapping("/stats")
-    public void getStats() {
-
+    public StatsDto getStats(@RequestParam String start,
+                             @RequestParam String end,
+                             @RequestParam(required = false) String[] uris,
+                             @RequestParam(required = false) boolean unique) {
+        return null;
     }
 }

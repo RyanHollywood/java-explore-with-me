@@ -1,4 +1,4 @@
-package ru.practicum.statsserver.hit.dto;
+package ru.practicum.statsserver.dto;
 
 import lombok.Builder;
 import lombok.Data;
