@@ -7,12 +7,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class HitMapper {
-    public static Hit fromDto(HitDto eventDto) {
+    public static Hit fromDto(HitDto hitDto) {
         return  Hit.builder()
-                .app(eventDto.getApp())
-                .uri(eventDto.getUri())
-                .ip(eventDto.getIp())
-                .timestamp(LocalDateTime.parse(eventDto.getTimestamp(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .app(hitDto.getApp())
+                .uri(hitDto.getUri())
+                .ip(hitDto.getIp())
+                .timestamp(LocalDateTime.parse(hitDto.getTimestamp(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .build();
+    }
+
+    public static HitDto toDto(Hit hit) {
+        return HitDto.builder()
+                .id(hit.getId())
+                .app(hit.getApp())
+                .uri(hit.getUri())
+                .ip(hit.getIp())
+                .timestamp(hit.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
     }
 }

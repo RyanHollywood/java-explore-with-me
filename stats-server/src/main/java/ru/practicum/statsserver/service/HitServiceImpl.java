@@ -11,8 +11,10 @@ import ru.practicum.statsserver.mapper.HitMapper;
 import ru.practicum.statsserver.storage.HitRepository;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -33,15 +35,19 @@ public class HitServiceImpl implements HitService {
     }
 
     @Override
-    public List<StatsDto> getStats(String start, String end, List<String> uris, boolean unique) {
+    public List<HitDto> getStats(String start, String end, List<String> uris, boolean unique) {
         if (Optional.ofNullable(uris).isEmpty()) {
-            return null;
+            return hitRepository.findHitByTimestampBetween(parseDatetime(start), parseDatetime(end)).stream()
+                    .map(HitMapper::toDto)
+                    .collect(Collectors.toList());
         } else {
-            return null;
+            return hitRepository.findHitByTimestampBetweenAndUriInOrderByApp(parseDatetime(start), parseDatetime(end), uris).stream()
+                    .map(HitMapper::toDto)
+                    .collect(Collectors.toList());
         }
     }
 
     private LocalDateTime parseDatetime(String datetime) {
-        return LocalDateTime.now();
+        return LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

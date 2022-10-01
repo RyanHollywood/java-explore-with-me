@@ -3,7 +3,6 @@ package ru.practicum.statsserver;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.statsserver.dto.HitDto;
-import ru.practicum.statsserver.dto.StatsDto;
 import ru.practicum.statsserver.service.HitServiceImpl;
 
 import javax.validation.Valid;
@@ -24,7 +23,7 @@ public class StatsController {
     }
 
     @GetMapping("/stats")
-    public List<StatsDto> getStats(@RequestParam String start,
+    public List<HitDto> getStats(@RequestParam String start,
                                    @RequestParam String end,
                                    @RequestParam(required = false) List<String> uris,
                                    @RequestParam(required = false) boolean unique) {
