@@ -7,6 +7,7 @@ import ru.practicum.statsserver.dto.StatsDto;
 import ru.practicum.statsserver.service.HitServiceImpl;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class StatsController {
@@ -23,10 +24,10 @@ public class StatsController {
     }
 
     @GetMapping("/stats")
-    public StatsDto getStats(@RequestParam String start,
-                             @RequestParam String end,
-                             @RequestParam(required = false) String[] uris,
-                             @RequestParam(required = false) boolean unique) {
-        return null;
+    public List<StatsDto> getStats(@RequestParam String start,
+                                   @RequestParam String end,
+                                   @RequestParam(required = false) List<String> uris,
+                                   @RequestParam(required = false) boolean unique) {
+        return eventService.getStats(start, end, uris, unique);
     }
 }

@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "12d3c26f-2f71-40b3-ab44-9ba5848c459e",
+		"name": "stats-server-tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20818490"
+	},
+	"item": [
+		{
+			"name": "add-hits",
+			"item": [
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"pm.test(\"Test save hit information\", function () {\r",
+									"    var responseMessage = pm.response.text();\r",
+									"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"string\",\r\n    \"uri\": \"string\",\r\n    \"ip\": \"0.0.0.0\",\r\n    \"timestamp\": \"2022-09-06 11:11:11\"\r\n}"
+						},
+						"url": {
+							"raw": "{{stats-server-url}}/hit",
+							"host": [
+								"{{stats-server-url}}"
+							],
+							"path": [
+								"hit"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "stats-server-url",
+			"value": "http://localhost:9090",
+			"type": "string"
+		}
+	]
+}

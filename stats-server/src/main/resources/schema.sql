@@ -3,6 +3,6 @@ CREATE TABLE IF NOT EXISTS hits (
     app TINYTEXT,
     uri TINYTEXT,
     ip TINYTEXT,
-    hit_time DATETIME,
+    timestamp DATETIME,
     PRIMARY KEY (id)
 );
