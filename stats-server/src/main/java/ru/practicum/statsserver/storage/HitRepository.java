@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface HitRepository extends JpaRepository<Hit, Long> {
     List<Hit> findHitByTimestampBetween(LocalDateTime start, LocalDateTime end);
-
+    List<Hit> findDistinctByIpHitByTimestampBetween(LocalDateTime start, LocalDateTime end);
     List<Hit> findHitByTimestampBetweenAndUriInOrderByApp(LocalDateTime start, LocalDateTime end, List<String> uris);
+    List<Hit> findDistinctByIpHitByTimestampBetweenAndUriInOrderByApp(LocalDateTime start, LocalDateTime end, List<String> uris);
 }
