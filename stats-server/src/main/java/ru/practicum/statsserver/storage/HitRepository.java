@@ -16,7 +16,7 @@ public interface HitRepository extends JpaRepository<Hit, Long> {
             "FROM (SELECT *" +
             "      FROM hits" +
             "      WHERE timestamp BETWEEN CAST(:start AS DATETIME) AND CAST(:end AS DATETIME)) as hits_formatted" +
-            " GROUP BY uri;", nativeQuery = true)
+            " GROUP BY app, uri;", nativeQuery = true)
     List<Tuple> getAllStats(@Param("start") String start,
                             @Param("end") String end);
     /*
