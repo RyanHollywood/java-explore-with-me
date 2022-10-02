@@ -50,7 +50,17 @@ public class HitServiceImpl implements HitService {
                         .collect(Collectors.toList());
             }
         } else {
-            return null;
+            if (unique) {
+                return hitRepository.getStatsByUrisWithUniqueIp(start, end, uris).stream()
+                        .map(StatsMapper::fromTuple)
+                        .map(StatsMapper::toDto)
+                        .collect(Collectors.toList());
+            } else {
+                return hitRepository.getStatsByUris(start, end, uris).stream()
+                        .map(StatsMapper::fromTuple)
+                        .map(StatsMapper::toDto)
+                        .collect(Collectors.toList());
+            }
         }
     }
 
