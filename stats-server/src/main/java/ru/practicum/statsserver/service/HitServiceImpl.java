@@ -11,8 +11,7 @@ import ru.practicum.statsserver.mapper.HitMapper;
 import ru.practicum.statsserver.mapper.StatsMapper;
 import ru.practicum.statsserver.storage.HitRepository;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import javax.persistence.Tuple;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class HitServiceImpl implements HitService {
     @Override
     public ResponseEntity<String> create(HitDto hitDto) {
         hitRepository.save(HitMapper.fromDto(hitDto));
-        log.debug("Информация сохранена");
+        log.debug("{} HIT TO {} FROM {} SAVED", hitDto.getApp(), hitDto.getUri(), hitDto.getIp());
         return new ResponseEntity<>("Информация сохранена", HttpStatus.OK);
     }
 
@@ -39,32 +38,27 @@ public class HitServiceImpl implements HitService {
     public List<StatsDto> getStats(String start, String end, List<String> uris, boolean unique) {
         if (Optional.ofNullable(uris).isEmpty()) {
             if (unique) {
-                return hitRepository.getAllStatsWithUnigueIp(start, end).stream()
-                        .map(StatsMapper::fromTuple)
-                        .map(StatsMapper::toDto)
-                        .collect(Collectors.toList());
+                log.debug("STATS FROM {} TO {} WITH UNIQUE IP", start, end);
+                return toStatsDtos(hitRepository.getAllStatsWithUnigueIp(start, end));
             } else {
-                return hitRepository.getAllStats(start, end).stream()
-                        .map(StatsMapper::fromTuple)
-                        .map(StatsMapper::toDto)
-                        .collect(Collectors.toList());
+                log.debug("STATS FROM {} TO {}", start, end);
+                return toStatsDtos(hitRepository.getAllStats(start, end));
             }
         } else {
             if (unique) {
-                return hitRepository.getStatsByUrisWithUniqueIp(start, end, uris).stream()
-                        .map(StatsMapper::fromTuple)
-                        .map(StatsMapper::toDto)
-                        .collect(Collectors.toList());
+                log.debug("STATS FROM {} TO {} FOR {} WITH UNIQUE IP", start, end, String.join(",", uris));
+                return toStatsDtos(hitRepository.getStatsByUrisWithUniqueIp(start, end, uris));
             } else {
-                return hitRepository.getStatsByUris(start, end, uris).stream()
-                        .map(StatsMapper::fromTuple)
-                        .map(StatsMapper::toDto)
-                        .collect(Collectors.toList());
+                log.debug("STATS FROM {} TO {} FOR {}", start, end, String.join(",", uris));
+                return toStatsDtos(hitRepository.getStatsByUris(start, end, uris));
             }
         }
     }
 
-    private LocalDateTime parseDatetime(String datetime) {
-        return LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    private List<StatsDto> toStatsDtos(List<Tuple> tuples) {
+        return tuples.stream()
+                .map(StatsMapper::fromTuple)
+                .map(StatsMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
