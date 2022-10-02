@@ -25,7 +25,7 @@ public interface HitRepository extends JpaRepository<Hit, Long> {
             "      WHERE timestamp BETWEEN CAST(:start AS DATETIME) AND CAST(:end AS DATETIME)) as hits_formatted" +
             " GROUP BY app, uri;", nativeQuery = true)
     List<Tuple> getAllStatsWithUnigueIp(@Param("start") String start,
-                                         @Param("end") String end);
+                                        @Param("end") String end);
 
     /*
     @Query()

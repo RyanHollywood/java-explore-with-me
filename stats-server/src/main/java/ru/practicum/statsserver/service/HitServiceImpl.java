@@ -9,10 +9,8 @@ import ru.practicum.statsserver.dto.HitDto;
 import ru.practicum.statsserver.dto.StatsDto;
 import ru.practicum.statsserver.mapper.HitMapper;
 import ru.practicum.statsserver.mapper.StatsMapper;
-import ru.practicum.statsserver.model.Stats;
 import ru.practicum.statsserver.storage.HitRepository;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -42,35 +40,17 @@ public class HitServiceImpl implements HitService {
         if (Optional.ofNullable(uris).isEmpty()) {
             if (unique) {
                 return hitRepository.getAllStatsWithUnigueIp(start, end).stream()
-                        .map(tuple ->
-                                new Stats(tuple.get(0, String.class),
-                                        tuple.get(1, String.class),
-                                        (tuple.get(2, BigInteger.class).longValue())
-                                ))
+                        .map(StatsMapper::fromTuple)
                         .map(StatsMapper::toDto)
                         .collect(Collectors.toList());
             } else {
                 return hitRepository.getAllStats(start, end).stream()
-                        .map(tuple ->
-                                new Stats(tuple.get(0, String.class),
-                                        tuple.get(1, String.class),
-                                        (tuple.get(2, BigInteger.class).longValue())
-                                ))
+                        .map(StatsMapper::fromTuple)
                         .map(StatsMapper::toDto)
                         .collect(Collectors.toList());
             }
-            /*
-            return hitRepository.findHitByTimestampBetweenOrderByApp(parseDatetime(start), parseDatetime(end)).stream()
-                    .map(HitMapper::toDto)
-                    .collect(Collectors.toList());
-             */
         } else {
             return null;
-            /*
-            return hitRepository.findHitByTimestampBetweenAndUriInOrderByApp(parseDatetime(start), parseDatetime(end), uris).stream()
-                    .map(HitMapper::toDto)
-                    .collect(Collectors.toList());
-             */
         }
     }
 
