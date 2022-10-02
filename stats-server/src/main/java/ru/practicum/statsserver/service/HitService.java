@@ -9,5 +9,5 @@ import java.util.List;
 public interface HitService {
     ResponseEntity<String> create(HitDto hitDto);
 
-    List<HitDto> getStats(String start, String end, List<String> uris, boolean unique);
+    List<StatsDto> getStats(String start, String end, List<String> uris, boolean unique);
 }
