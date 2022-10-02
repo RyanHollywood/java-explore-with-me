@@ -16,7 +16,6 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,7 +41,14 @@ public class HitServiceImpl implements HitService {
     public List<StatsDto> getStats(String start, String end, List<String> uris, boolean unique) {
         if (Optional.ofNullable(uris).isEmpty()) {
             if (unique) {
-                return null;
+                return hitRepository.getAllStatsWithUnigueIp(start, end).stream()
+                        .map(tuple ->
+                                new Stats(tuple.get(0, String.class),
+                                        tuple.get(1, String.class),
+                                        (tuple.get(2, BigInteger.class).longValue())
+                                ))
+                        .map(StatsMapper::toDto)
+                        .collect(Collectors.toList());
             } else {
                 return hitRepository.getAllStats(start, end).stream()
                         .map(tuple ->
