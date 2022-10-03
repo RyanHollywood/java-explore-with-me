@@ -12,6 +12,7 @@ import ru.practicum.statsserver.mapper.StatsMapper;
 import ru.practicum.statsserver.storage.HitRepository;
 
 import javax.persistence.Tuple;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,23 +37,25 @@ public class HitServiceImpl implements HitService {
 
     @Override
     public List<StatsDto> getStats(String start, String end, List<String> uris, boolean unique) {
+        List<StatsDto> statsDtoList = new ArrayList<>();
         if (Optional.ofNullable(uris).isEmpty()) {
             if (unique) {
                 log.debug("STATS FROM {} TO {} WITH UNIQUE IP", start, end);
-                return toStatsDtos(hitRepository.getAllStatsWithUnigueIp(start, end));
+                statsDtoList = toStatsDtos(hitRepository.getAllStatsWithUnigueIp(start, end));
             } else {
                 log.debug("STATS FROM {} TO {}", start, end);
-                return toStatsDtos(hitRepository.getAllStats(start, end));
+                statsDtoList = toStatsDtos(hitRepository.getAllStats(start, end));
             }
         } else {
             if (unique) {
                 log.debug("STATS FROM {} TO {} FOR {} WITH UNIQUE IP", start, end, String.join(",", uris));
-                return toStatsDtos(hitRepository.getStatsByUrisWithUniqueIp(start, end, uris));
+                statsDtoList = toStatsDtos(hitRepository.getStatsByUrisWithUniqueIp(start, end, uris));
             } else {
                 log.debug("STATS FROM {} TO {} FOR {}", start, end, String.join(",", uris));
-                return toStatsDtos(hitRepository.getStatsByUris(start, end, uris));
+                statsDtoList = toStatsDtos(hitRepository.getStatsByUris(start, end, uris));
             }
         }
+        return statsDtoList;
     }
 
     private List<StatsDto> toStatsDtos(List<Tuple> tuples) {
