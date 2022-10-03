@@ -1,7 +1,6 @@
 package ru.practicum.ewmservice.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.ewmservice.service.adminewm.AdminServiceImpl;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.category.NewCategoryDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
@@ -10,6 +9,7 @@ import ru.practicum.ewmservice.dto.event.AdminUpdateEventRequestDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.user.NewUserRequest;
 import ru.practicum.ewmservice.dto.user.UserDto;
+import ru.practicum.ewmservice.service.adminewm.AdminServiceImpl;
 
 import java.util.List;
 

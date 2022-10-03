@@ -33,19 +33,19 @@ public class PrivateController {
 
     @PostMapping("/{userId}/events")
     public EventFullDto postEvents(@PathVariable long userId,
-                           @RequestBody NewEventDto eventDto) {
+                                   @RequestBody NewEventDto eventDto) {
         return null;
     }
 
     @GetMapping("/{userId}/events/{eventId}")
     public EventFullDto getUserEvent(@PathVariable long userId,
-                             @PathVariable long eventId) {
+                                     @PathVariable long eventId) {
         return null;
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
     public EventFullDto patchUserEvents(@PathVariable long userId,
-                                @PathVariable long eventId) {
+                                        @PathVariable long eventId) {
         return null;
     }
 
@@ -57,15 +57,15 @@ public class PrivateController {
 
     @PatchMapping("/{userId}/events/{eventId}/requests/{reqId]/confirm")
     public ParticipationRequestDto confirmEventRequest(@PathVariable long userId,
-                                    @PathVariable long eventId,
-                                    @PathVariable long reqId) {
+                                                       @PathVariable long eventId,
+                                                       @PathVariable long reqId) {
         return null;
     }
 
     @PatchMapping("/{userId}/events/{eventId}/requests/{reqId]/reject")
     public ParticipationRequestDto rejectEventRequest(@PathVariable long userId,
-                                   @PathVariable long eventId,
-                                   @PathVariable long reqId) {
+                                                      @PathVariable long eventId,
+                                                      @PathVariable long reqId) {
         return null;
     }
 
@@ -81,7 +81,7 @@ public class PrivateController {
 
     @PatchMapping("/{userId}/requests/{reqId}/cancel")
     public ParticipationRequestDto cancelUserRequest(@PathVariable long userId,
-                                  @PathVariable long reqId) {
+                                                     @PathVariable long reqId) {
         return null;
     }
 }
