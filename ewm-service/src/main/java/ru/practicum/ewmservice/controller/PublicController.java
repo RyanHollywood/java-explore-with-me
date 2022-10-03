@@ -1,4 +1,4 @@
-package ru.practicum.ewmservice.publicservice;
+package ru.practicum.ewmservice.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
