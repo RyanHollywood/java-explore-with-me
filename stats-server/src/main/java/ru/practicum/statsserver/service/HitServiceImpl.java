@@ -15,6 +15,7 @@ import javax.persistence.Tuple;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -37,7 +38,7 @@ public class HitServiceImpl implements HitService {
 
     @Override
     public List<StatsDto> getStats(String start, String end, List<String> uris, boolean unique) {
-        List<StatsDto> statsDtoList = new ArrayList<>();
+        List<StatsDto> statsDtoList;
         if (Optional.ofNullable(uris).isEmpty()) {
             if (unique) {
                 log.debug("STATS FROM {} TO {} WITH UNIQUE IP", start, end);
@@ -55,13 +56,32 @@ public class HitServiceImpl implements HitService {
                 statsDtoList = toStatsDtos(hitRepository.getStatsByUris(start, end, uris));
             }
         }
-        return statsDtoList;
+        return fillWithUriWithNoHits(uris, statsDtoList);
     }
 
     private List<StatsDto> toStatsDtos(List<Tuple> tuples) {
         return tuples.stream()
                 .map(StatsMapper::fromTuple)
                 .map(StatsMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    private List<StatsDto> fillWithUriWithNoHits(List<String> uris, List<StatsDto> statsDtoList) {
+        TreeSet<StatsDto> statsTreeSet = new TreeSet<>(statsDtoList);
+        List<String> statsUris = new ArrayList<>();
+        for (StatsDto stats : statsDtoList) {
+            statsUris.add(stats.getUri());
+        }
+        List<String> diffUris = findDifference(uris, statsUris);
+        for (String uri : diffUris) {
+            statsTreeSet.add(new StatsDto("", uri, 0L));
+        }
+        return new ArrayList<>(statsTreeSet);
+    }
+
+    private List<String> findDifference(List<String> list1, List<String> list2) {
+        return list1.stream()
+                .filter(item -> !list2.contains(item))
                 .collect(Collectors.toList());
     }
 }
