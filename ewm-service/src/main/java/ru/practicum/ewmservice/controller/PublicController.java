@@ -1,33 +1,54 @@
 package ru.practicum.ewmservice.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.practicum.ewmservice.dto.category.CategoryDto;
+import ru.practicum.ewmservice.dto.compilation.CompilationDto;
+import ru.practicum.ewmservice.dto.event.EventFullDto;
+import ru.practicum.ewmservice.dto.event.EventShortDto;
+import ru.practicum.ewmservice.service.publicewm.PublicServiceImpl;
+
+import java.util.List;
 
 @RestController
 @RequestMapping
 public class PublicController {
+
+    final PublicServiceImpl publicService;
+
+    public PublicController(PublicServiceImpl publicService) {
+        this.publicService = publicService;
+    }
+
     @GetMapping("/events")
-    public void getEvents() {
+    public List<EventShortDto> getEvents() {
+        return null;
     }
 
     @GetMapping("/events/{id}")
-    public void getEvent() {
+    public EventFullDto getEvent(@PathVariable long id) {
+        return null;
     }
 
     @GetMapping("/compilations")
-    public void getCompilations() {
+    public List<CompilationDto> getCompilations() {
+        return null;
     }
 
     @GetMapping("/compilations/{compId}")
-    public void getCompilation() {
+    public CompilationDto getCompilation(@PathVariable long compId) {
+        return null;
     }
 
     @GetMapping("/categories")
-    public void getCategories() {
+    public List<CategoryDto> getCategories() {
+        return null;
     }
 
     @GetMapping("/categories/{catId}")
-    public void getCategory() {
+    public CategoryDto getCategory(@PathVariable long catId) {
+        return null;
     }
 }
