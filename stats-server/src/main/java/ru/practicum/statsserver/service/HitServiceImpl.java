@@ -67,16 +67,17 @@ public class HitServiceImpl implements HitService {
     }
 
     private List<StatsDto> fillWithUriWithNoHits(List<String> uris, List<StatsDto> statsDtoList) {
-        TreeSet<StatsDto> statsTreeSet = new TreeSet<>(statsDtoList);
         List<String> statsUris = new ArrayList<>();
         for (StatsDto stats : statsDtoList) {
             statsUris.add(stats.getUri());
         }
         List<String> diffUris = findDifference(uris, statsUris);
         for (String uri : diffUris) {
-            statsTreeSet.add(new StatsDto("", uri, 0L));
+            statsDtoList.add(new StatsDto("", uri, 0L));
         }
-        return new ArrayList<>(statsTreeSet);
+        return statsDtoList.stream()
+                .sorted()
+                .collect(Collectors.toList());
     }
 
     private List<String> findDifference(List<String> list1, List<String> list2) {
