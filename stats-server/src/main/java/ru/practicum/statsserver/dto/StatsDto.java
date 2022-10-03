@@ -14,6 +14,18 @@ public class StatsDto implements Comparable<StatsDto> {
 
     @Override
     public int compareTo(StatsDto o) {
-        return 0;
+        int result = 0;
+        if (app.compareTo(o.getApp()) > 0) {
+            result = 1;
+        } else if (app.compareTo(o.getApp()) < 0) {
+            result = -1;
+        } else {
+            if (uri.compareTo(o.getUri()) > 0) {
+                result = 1;
+            } else {
+                result = -1;
+            }
+        }
+        return result;
     }
 }
