@@ -13,9 +13,9 @@ import ru.practicum.statsserver.storage.HitRepository;
 
 import javax.persistence.Tuple;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -75,9 +75,8 @@ public class HitServiceImpl implements HitService {
         for (String uri : diffUris) {
             statsDtoList.add(new StatsDto("", uri, 0L));
         }
-        return statsDtoList.stream()
-                .sorted()
-                .collect(Collectors.toList());
+        statsDtoList.sort(Comparator.naturalOrder());
+        return statsDtoList;
     }
 
     private List<String> findDifference(List<String> list1, List<String> list2) {
