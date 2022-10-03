@@ -18,6 +18,6 @@ public class StatsMapper {
     public static Stats fromTuple(Tuple tuple) {
         return new Stats(tuple.get(0, String.class),
                 tuple.get(1, String.class),
-                (tuple.get(2, BigInteger.class).longValue()));
+                tuple.get(2, BigInteger.class).longValue());
     }
 }
