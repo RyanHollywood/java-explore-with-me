@@ -1,4 +1,4 @@
-package ru.practicum.statsserver;
+package ru.practicum.statsserver.controller;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
