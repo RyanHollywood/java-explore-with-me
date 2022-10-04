@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class EventMapper {
-    public static Event fromNewEventDto(NewEventDto newEventDto, String pattern) {
+    public static Event fromNewEventDto(NewEventDto newEventDto) {
         return Event.builder()
                 .annotation(newEventDto.getAnnotation())
                 .description(newEventDto.getDescription())
                 .eventDate(LocalDateTime.parse(newEventDto.getEventDate(),
-                        DateTimeFormatter.ofPattern(pattern)))
+                        DateTimeFormatter.ofPattern(DateTimePattern.pattern)))
                 .location(LocationMapper.fromLocationDto(newEventDto.getLocation()))
                 .paid(newEventDto.isPaid())
                 .participantLimit(newEventDto.getParticipantLimit())
@@ -23,14 +23,14 @@ public class EventMapper {
                 .build();
     }
 
-    public static EventFullDto toEventFullDto(Event event, String pattern) {
+    public static EventFullDto toEventFullDto(Event event) {
         return EventFullDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.toCategoryDto(event.getCategory()))
                 .confirmedRequests(event.getConfirmedRequests())
-                .createOn(event.getCreateOn().format(DateTimeFormatter.ofPattern(pattern)))
+                .createOn(event.getCreateOn().format(DateTimeFormatter.ofPattern(DateTimePattern.pattern)))
                 .description(event.getDescription())
-                .eventDate(event.getEventDate().format(DateTimeFormatter.ofPattern(pattern)))
+                .eventDate(event.getEventDate().format(DateTimeFormatter.ofPattern(DateTimePattern.pattern)))
                 .id(event.getId())
                 .initiator(UserMapper.toUserShortDto(event.getInitiator()))
                 .location(LocationMapper.toLocationDto(event.getLocation()))
@@ -44,12 +44,12 @@ public class EventMapper {
                 .build();
     }
 
-    public static EventShortDto toEventShortDto(Event event, String pattern) {
+    public static EventShortDto toEventShortDto(Event event) {
         return EventShortDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.toCategoryDto(event.getCategory()))
                 .confirmedRequests(event.getConfirmedRequests())
-                .eventDate(event.getEventDate().format(DateTimeFormatter.ofPattern(pattern)))
+                .eventDate(event.getEventDate().format(DateTimeFormatter.ofPattern(DateTimePattern.pattern)))
                 .id(event.getId())
                 .initiator(UserMapper.toUserShortDto(event.getInitiator()))
                 .paid(event.isPaid())
