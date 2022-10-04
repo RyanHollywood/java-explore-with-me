@@ -12,8 +12,11 @@ import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.user.NewUserRequest;
 import ru.practicum.ewmservice.dto.user.UserDto;
 import ru.practicum.ewmservice.mapper.CategoryMapper;
+import ru.practicum.ewmservice.mapper.UserMapper;
 import ru.practicum.ewmservice.model.Category;
+import ru.practicum.ewmservice.model.User;
 import ru.practicum.ewmservice.storage.CategoryRepository;
+import ru.practicum.ewmservice.storage.UserRepository;
 
 import java.util.List;
 
@@ -22,10 +25,12 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AdminServiceImpl(CategoryRepository categoryRepository) {
+    public AdminServiceImpl(CategoryRepository categoryRepository, UserRepository userRepository) {
         this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -73,7 +78,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public UserDto createUser(NewUserRequest userRequest) {
-        return null;
+        User newUser = UserMapper.fromNewUserRequest(userRequest);
+        newUser = userRepository.save(newUser);
+        log.debug("NEW USER {} CREATED", newUser.getName());
+        return UserMapper.toUserDto(newUser);
     }
 
     @Override
