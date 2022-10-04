@@ -53,7 +53,7 @@ public class EventMapper {
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.toCategoryDto(event.getCategory()))
                 .confirmedRequests(event.getConfirmedRequests())
-                .eventDate(event.getEventDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .eventDate(event.getEventDate().format(DateTimeFormatter.ofPattern(pattern)))
                 .id(event.getId())
                 .initiator(UserMapper.toUserShortDto(event.getInitiator()))
                 .paid(event.isPaid())

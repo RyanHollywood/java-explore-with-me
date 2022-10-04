@@ -2,6 +2,7 @@ package ru.practicum.statsserver.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,16 +24,19 @@ import java.util.stream.Collectors;
 @Service
 public class HitServiceImpl implements HitService {
 
+    private final String pattern;
     private final HitRepository hitRepository;
 
     @Autowired
-    public HitServiceImpl(HitRepository hitRepository) {
+    public HitServiceImpl(@Value("${date.time.pattern}") String dateTimePattern,
+                          HitRepository hitRepository) {
+        this.pattern = dateTimePattern;
         this.hitRepository = hitRepository;
     }
 
     @Override
     public ResponseEntity<String> create(HitDto hitDto) {
-        hitRepository.save(HitMapper.fromDto(hitDto));
+        hitRepository.save(HitMapper.fromDto(hitDto, pattern));
         log.debug("{} HIT TO {} FROM {} SAVED", hitDto.getApp(), hitDto.getUri(), hitDto.getIp());
         return new ResponseEntity<>("Информация сохранена", HttpStatus.OK);
     }

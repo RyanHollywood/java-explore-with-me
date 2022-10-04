@@ -8,10 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class HitMapper {
-    @Value("${date.time.pattern}")
-    private static String pattern;
-
-    public static Hit fromDto(HitDto hitDto) {
+    public static Hit fromDto(HitDto hitDto, String pattern) {
         return  Hit.builder()
                 .app(hitDto.getApp())
                 .uri(hitDto.getUri())
