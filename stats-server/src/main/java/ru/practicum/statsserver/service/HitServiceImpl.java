@@ -9,6 +9,7 @@ import ru.practicum.statsserver.dto.HitDto;
 import ru.practicum.statsserver.dto.StatsDto;
 import ru.practicum.statsserver.mapper.HitMapper;
 import ru.practicum.statsserver.mapper.StatsMapper;
+import ru.practicum.statsserver.model.Stats;
 import ru.practicum.statsserver.storage.HitRepository;
 
 import javax.persistence.Tuple;
@@ -38,45 +39,52 @@ public class HitServiceImpl implements HitService {
 
     @Override
     public List<StatsDto> getStats(String start, String end, List<String> apps, List<String> uris, boolean unique) {
-        List<StatsDto> statsDtoList;
+        List<Stats> statsList;
         if (Optional.ofNullable(uris).isEmpty()) {
             if (unique) {
                 log.debug("STATS FROM {} TO {} WITH UNIQUE IP", start, end);
-                statsDtoList = toStatsDtos(hitRepository.getAllStatsWithUnigueIp(start, end));
+                statsList = toStats(hitRepository.getAllStatsWithUnigueIp(start, end));
             } else {
                 log.debug("STATS FROM {} TO {}", start, end);
-                statsDtoList = toStatsDtos(hitRepository.getAllStats(start, end));
+                statsList = toStats(hitRepository.getAllStats(start, end));
             }
         } else {
             if (unique) {
                 log.debug("STATS FROM {} TO {} FOR {} WITH UNIQUE IP", start, end, String.join(",", uris));
-                statsDtoList = toStatsDtos(hitRepository.getStatsByUrisWithUniqueIp(start, end, uris));
+                statsList = toStats(hitRepository.getStatsByUrisWithUniqueIp(start, end, uris));
             } else {
                 log.debug("STATS FROM {} TO {} FOR {}", start, end, String.join(",", uris));
-                statsDtoList = toStatsDtos(hitRepository.getStatsByUris(start, end, uris));
+                statsList = toStats(hitRepository.getStatsByUris(start, end, uris));
             }
         }
-        return fillWithUriWithNoHits(uris, statsDtoList);
+        statsList = fillWithWithNoHits(apps, uris, statsList);
+        return toStatsDtoList(statsList);
     }
 
-    private List<StatsDto> toStatsDtos(List<Tuple> tuples) {
+    private List<Stats> toStats(List<Tuple> tuples) {
         return tuples.stream()
                 .map(StatsMapper::fromTuple)
+                .collect(Collectors.toList());
+    }
+
+    private List<StatsDto> toStatsDtoList(List<Stats> statsList) {
+        return statsList.stream()
                 .map(StatsMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    private List<StatsDto> fillWithUriWithNoHits(List<String> uris, List<StatsDto> statsDtoList) {
+    private List<Stats> fillWithWithNoHits(List<String> apps, List<String> uris, List<Stats> statsList) {
+        List<String> statsApps = new ArrayList<>();
         List<String> statsUris = new ArrayList<>();
-        for (StatsDto stats : statsDtoList) {
+        for (Stats stats : statsList) {
             statsUris.add(stats.getUri());
         }
         List<String> diffUris = findDifference(uris, statsUris);
         for (String uri : diffUris) {
-            statsDtoList.add(new StatsDto("", uri, 0L));
+            statsList.add(new Stats("", uri, 0));
         }
-        statsDtoList.sort(Comparator.naturalOrder());
-        return statsDtoList;
+        statsList.sort(Comparator.naturalOrder());
+        return statsList;
     }
 
     private List<String> findDifference(List<String> list1, List<String> list2) {
