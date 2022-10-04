@@ -24,31 +24,31 @@ public class PublicController {
 
     @GetMapping("/events")
     public List<EventShortDto> getEvents() {
-        return null;
+        return publicService.getEvents();
     }
 
     @GetMapping("/events/{id}")
     public EventFullDto getEvent(@PathVariable long id) {
-        return null;
+        return publicService.getEvent(id);
     }
 
     @GetMapping("/compilations")
     public List<CompilationDto> getCompilations() {
-        return null;
+        return publicService.getCompilations();
     }
 
     @GetMapping("/compilations/{compId}")
     public CompilationDto getCompilation(@PathVariable long compId) {
-        return null;
+        return publicService.getCompilation(compId);
     }
 
     @GetMapping("/categories")
     public List<CategoryDto> getCategories() {
-        return null;
+        return publicService.getCategories();
     }
 
     @GetMapping("/categories/{catId}")
     public CategoryDto getCategory(@PathVariable long catId) {
-        return null;
+        return publicService.getCategory(catId);
     }
 }
