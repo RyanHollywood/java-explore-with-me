@@ -1,6 +1,5 @@
 package ru.practicum.ewmservice.mapper;
 
-import org.springframework.beans.factory.annotation.Value;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
@@ -10,10 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class EventMapper {
-    @Value("${date.time.pattern}")
-    private static String pattern;
-
-    public static Event fromNewEventDto(NewEventDto newEventDto) {
+    public static Event fromNewEventDto(NewEventDto newEventDto, String pattern) {
         return Event.builder()
                 .annotation(newEventDto.getAnnotation())
                 .description(newEventDto.getDescription())
@@ -27,7 +23,7 @@ public class EventMapper {
                 .build();
     }
 
-    public static EventFullDto toEventFullDto(Event event) {
+    public static EventFullDto toEventFullDto(Event event, String pattern) {
         return EventFullDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.toCategoryDto(event.getCategory()))
@@ -48,7 +44,7 @@ public class EventMapper {
                 .build();
     }
 
-    public static EventShortDto toEventShortDto(Event event) {
+    public static EventShortDto toEventShortDto(Event event, String pattern) {
         return EventShortDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.toCategoryDto(event.getCategory()))

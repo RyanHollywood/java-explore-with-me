@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class HitServiceImpl implements HitService {
-
     private final String pattern;
     private final HitRepository hitRepository;
 

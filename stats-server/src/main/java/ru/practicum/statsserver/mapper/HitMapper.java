@@ -1,6 +1,5 @@
 package ru.practicum.statsserver.mapper;
 
-import org.springframework.beans.factory.annotation.Value;
 import ru.practicum.statsserver.dto.HitDto;
 import ru.practicum.statsserver.model.Hit;
 
