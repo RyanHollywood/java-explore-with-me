@@ -26,8 +26,9 @@ public class StatsController {
     @GetMapping("/stats")
     public List<StatsDto> getStats(@RequestParam String start,
                                    @RequestParam String end,
+                                   @RequestParam(required = false) List<String> apps,
                                    @RequestParam(required = false) List<String> uris,
                                    @RequestParam(required = false) boolean unique) {
-        return eventService.getStats(start, end, uris, unique);
+        return eventService.getStats(start, end, apps, uris, unique);
     }
 }

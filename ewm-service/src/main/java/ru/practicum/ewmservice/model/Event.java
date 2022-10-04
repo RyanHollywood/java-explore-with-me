@@ -1,22 +1,19 @@
-package ru.practicum.ewmservice.dto.event;
+package ru.practicum.ewmservice.model;
 
 import lombok.Builder;
 import lombok.Data;
-import ru.practicum.ewmservice.dto.category.CategoryDto;
-import ru.practicum.ewmservice.dto.location.LocationDto;
-import ru.practicum.ewmservice.dto.user.UserShortDto;
 
 @Data
 @Builder
-public class EventFullDto {
-    private CategoryDto category;
+public class Event {
+    private Category category;
     private long confirmedRequests;
     private String createOn;
     private String description;
     private String eventDate;
     private long id;
-    private UserShortDto initiator;
-    private LocationDto location;
+    private User initiator;
+    private Location location;
     private boolean paid;
     private int participantLimit;
     private String publishedOn;
