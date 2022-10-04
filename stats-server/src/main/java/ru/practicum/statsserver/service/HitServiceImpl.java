@@ -39,6 +39,7 @@ public class HitServiceImpl implements HitService {
 
     @Override
     public List<StatsDto> getStats(String start, String end, List<String> apps, List<String> uris, boolean unique) {
+        //need solution for apps and uris - registration table for every app?
         List<Stats> statsList;
         if (Optional.ofNullable(uris).isEmpty()) {
             if (unique) {

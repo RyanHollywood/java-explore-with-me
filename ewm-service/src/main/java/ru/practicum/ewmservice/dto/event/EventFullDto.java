@@ -9,6 +9,7 @@ import ru.practicum.ewmservice.dto.user.UserShortDto;
 @Data
 @Builder
 public class EventFullDto {
+    private String annotation;
     private CategoryDto category;
     private long confirmedRequests;
     private String createOn;

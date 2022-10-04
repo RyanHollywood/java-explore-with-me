@@ -3,14 +3,17 @@ package ru.practicum.ewmservice.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class Event {
+    private String annotation;
     private Category category;
     private long confirmedRequests;
-    private String createOn;
+    private LocalDateTime createOn;
     private String description;
-    private String eventDate;
+    private LocalDateTime eventDate;
     private long id;
     private User initiator;
     private Location location;

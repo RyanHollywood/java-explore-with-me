@@ -1,10 +1,12 @@
 package ru.practicum.ewmservice.dto.event;
 
+import lombok.Builder;
 import lombok.Data;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.user.UserShortDto;
 
 @Data
+@Builder
 public class EventShortDto {
     private String annotation;
     private CategoryDto category;
