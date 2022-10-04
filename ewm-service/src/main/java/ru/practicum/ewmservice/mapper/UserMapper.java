@@ -6,6 +6,7 @@ import ru.practicum.ewmservice.dto.user.UserShortDto;
 import ru.practicum.ewmservice.model.User;
 
 public class UserMapper {
+
     public static User fromNewUserRequest(NewUserRequest newUserRequest) {
         return User.builder()
                 .name(newUserRequest.getName())

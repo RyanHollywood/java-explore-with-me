@@ -55,14 +55,14 @@ public class PrivateController {
         return null;
     }
 
-    @PatchMapping("/{userId}/events/{eventId}/requests/{reqId]/confirm")
+    @PatchMapping("/{userId}/events/{eventId}/requests/{reqId}/confirm")
     public ParticipationRequestDto confirmEventRequest(@PathVariable long userId,
                                                        @PathVariable long eventId,
                                                        @PathVariable long reqId) {
         return null;
     }
 
-    @PatchMapping("/{userId}/events/{eventId}/requests/{reqId]/reject")
+    @PatchMapping("/{userId}/events/{eventId}/requests/{reqId}/reject")
     public ParticipationRequestDto rejectEventRequest(@PathVariable long userId,
                                                       @PathVariable long eventId,
                                                       @PathVariable long reqId) {

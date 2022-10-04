@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS categories
+(
+    id INT8 NOT NULL AUTO_INCREMENT,
+    name TINYTEXT,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS users
+(
+    id INT8 NOT NULL AUTO_INCREMENT,
+    name TINYTEXT,
+    email TINYTEXT,
+    PRIMARY KEY (id)
+);
