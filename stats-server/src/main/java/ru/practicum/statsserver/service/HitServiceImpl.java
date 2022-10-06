@@ -33,7 +33,7 @@ public class HitServiceImpl implements HitService {
     @Override
     public ResponseEntity<String> create(HitDto hitDto) {
         hitRepository.save(HitMapper.fromDto(hitDto));
-        log.debug("{} HIT TO {} FROM {} SAVED", hitDto.getApp(), hitDto.getUri(), hitDto.getIp());
+        log.debug("Application {} hit to {} from {} saved", hitDto.getApp(), hitDto.getUri(), hitDto.getIp());
         return new ResponseEntity<>("Информация сохранена", HttpStatus.OK);
     }
 
@@ -43,18 +43,18 @@ public class HitServiceImpl implements HitService {
         List<Stats> statsList;
         if (Optional.ofNullable(uris).isEmpty()) {
             if (unique) {
-                log.debug("STATS FROM {} TO {} WITH UNIQUE IP", start, end);
+                log.debug("Stats from {} to {} with unique IP", start, end);
                 statsList = toStats(hitRepository.getAllStatsWithUnigueIp(start, end));
             } else {
-                log.debug("STATS FROM {} TO {}", start, end);
+                log.debug("Stats from {} to {}", start, end);
                 statsList = toStats(hitRepository.getAllStats(start, end));
             }
         } else {
             if (unique) {
-                log.debug("STATS FROM {} TO {} FOR {} WITH UNIQUE IP", start, end, String.join(",", uris));
+                log.debug("Stats from {} to {} for {} with unique IP", start, end, String.join(",", uris));
                 statsList = toStats(hitRepository.getStatsByUrisWithUniqueIp(start, end, uris));
             } else {
-                log.debug("STATS FROM {} TO {} FOR {}", start, end, String.join(",", uris));
+                log.debug("Stats from {} to {} for {}", start, end, String.join(",", uris));
                 statsList = toStats(hitRepository.getStatsByUris(start, end, uris));
             }
         }
