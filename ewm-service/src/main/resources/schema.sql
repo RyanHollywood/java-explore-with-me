@@ -41,3 +41,11 @@ CREATE TABLE IF NOT EXISTS events
     views TINYTEXT,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS compilations
+(
+    id INT8 NOT NULL AUTO_INCREMENT,
+    pinned BOOLEAN,
+    title TINYTEXT,
+    PRIMARY KEY (id)
+);
