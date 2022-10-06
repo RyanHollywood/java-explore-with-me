@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,8 +17,9 @@ import java.util.List;
 @Table(name = "events")
 public class Compilation {
 
-    @ManyToMany
-    private List<Event> events;
+    @OneToMany
+    @JoinTable(name = "events",  joinColumns = @JoinColumn(name = "id"))
+    private List<Event> events = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
