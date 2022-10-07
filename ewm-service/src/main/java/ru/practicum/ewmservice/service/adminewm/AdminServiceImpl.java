@@ -38,7 +38,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<EventFullDto> getEvents() {
+    public List<EventFullDto> getEvents(List<Long> users,
+                                        List<String> states,
+                                        List<Long> categories,
+                                        String rangeStart,
+                                        String rangeEnd,
+                                        int from,
+                                        int size) {
         return null;
     }
 
@@ -76,7 +82,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<UserDto> getUsers() {
+    public List<UserDto> getUsers(List<Long> ids, int from, int size) {
         return null;
     }
 

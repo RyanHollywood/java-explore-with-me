@@ -12,7 +12,13 @@ import ru.practicum.ewmservice.dto.user.UserDto;
 import java.util.List;
 
 public interface AdminService {
-    List<EventFullDto> getEvents();
+    List<EventFullDto> getEvents(List<Long> users,
+                                 List<String> states,
+                                 List<Long> categories,
+                                 String rangeStart,
+                                 String rangeEnd,
+                                 int from,
+                                 int size);
 
     EventFullDto editEvent(long eventId, AdminUpdateEventRequestDto requestDto);
 
@@ -26,7 +32,7 @@ public interface AdminService {
 
     void deleteCategory(long catId);
 
-    List<UserDto> getUsers();
+    List<UserDto> getUsers(List<Long> ids, int from, int size);
 
     UserDto createUser(NewUserRequest userRequest);
 

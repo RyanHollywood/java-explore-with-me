@@ -31,7 +31,7 @@ public class AdminController {
                                         @RequestParam String rangeEnd,
                                         @RequestParam int from,
                                         @RequestParam(defaultValue = "10") int size) {
-        return adminService.getEvents();
+        return adminService.getEvents(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
     @PutMapping("/envents/{eventId}")
@@ -69,7 +69,7 @@ public class AdminController {
     public List<UserDto> getUsers(@RequestParam List<Long> ids,
                                   @RequestParam int from,
                                   @RequestParam(defaultValue = "10") int size) {
-        return adminService.getUsers();
+        return adminService.getUsers(ids, from, size);
     }
 
     @PostMapping("/users")
