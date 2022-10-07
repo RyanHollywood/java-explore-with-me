@@ -21,7 +21,9 @@ public class PrivateController {
     }
 
     @GetMapping("/{userId}/events")
-    public List<EventShortDto> getEvents(@PathVariable long userId) {
+    public List<EventShortDto> getEvents(@PathVariable long userId,
+                                         @RequestParam int from,
+                                         @RequestParam(defaultValue = "10") int size) {
         return privateService.getEvents(userId);
     }
 

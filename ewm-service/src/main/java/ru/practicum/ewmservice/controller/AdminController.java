@@ -24,7 +24,13 @@ public class AdminController {
     }
 
     @GetMapping("/events")
-    public List<EventFullDto> getEvents() {
+    public List<EventFullDto> getEvents(@RequestParam List<Long> users,
+                                        @RequestParam List<String> states,
+                                        @RequestParam List<Long> categories,
+                                        @RequestParam String rangeStart,
+                                        @RequestParam String rangeEnd,
+                                        @RequestParam int from,
+                                        @RequestParam(defaultValue = "10") int size) {
         return adminService.getEvents();
     }
 
@@ -60,7 +66,9 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public List<UserDto> getUsers() {
+    public List<UserDto> getUsers(@RequestParam List<Long> ids,
+                                  @RequestParam int from,
+                                  @RequestParam(defaultValue = "10") int size) {
         return adminService.getUsers();
     }
 
