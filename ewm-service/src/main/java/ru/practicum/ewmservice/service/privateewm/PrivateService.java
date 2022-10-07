@@ -1,6 +1,5 @@
 package ru.practicum.ewmservice.service.privateewm;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
@@ -10,7 +9,8 @@ import ru.practicum.ewmservice.dto.partition.ParticipationRequestDto;
 import java.util.List;
 
 public interface PrivateService {
-    List<EventShortDto> getEvents(long userId);
+
+    List<EventShortDto> getEvents(long userId, int from, int size);
 
     EventFullDto updateEvent(long userId, UpdateEventRequest eventRequest);
 

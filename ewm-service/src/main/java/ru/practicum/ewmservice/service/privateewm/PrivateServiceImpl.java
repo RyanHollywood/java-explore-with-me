@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class PrivateServiceImpl implements PrivateService {
     @Override
-    public List<EventShortDto> getEvents(long userId) {
+    public List<EventShortDto> getEvents(long userId, int from, int size) {
         return null;
     }
 

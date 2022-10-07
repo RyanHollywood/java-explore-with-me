@@ -24,7 +24,7 @@ public class PrivateController {
     public List<EventShortDto> getEvents(@PathVariable long userId,
                                          @RequestParam int from,
                                          @RequestParam(defaultValue = "10") int size) {
-        return privateService.getEvents(userId);
+        return privateService.getEvents(userId, from, size);
     }
 
     @PatchMapping("/{userId}/events")
