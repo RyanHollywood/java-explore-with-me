@@ -1,9 +1,6 @@
 package ru.practicum.ewmservice.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
@@ -23,7 +20,15 @@ public class PublicController {
     }
 
     @GetMapping("/events")
-    public List<EventShortDto> getEvents() {
+    public List<EventShortDto> getEvents(@RequestParam String text,
+                                         @RequestParam List<Long> categories,
+                                         @RequestParam boolean paid,
+                                         @RequestParam String rangeStart,
+                                         @RequestParam String rangeEnd,
+                                         @RequestParam boolean onlyAvailable,
+                                         @RequestParam String sort,
+                                         @RequestParam int from,
+                                         @RequestParam(defaultValue = "10") int size) {
         return publicService.getEvents();
     }
 
@@ -33,7 +38,9 @@ public class PublicController {
     }
 
     @GetMapping("/compilations")
-    public List<CompilationDto> getCompilations() {
+    public List<CompilationDto> getCompilations(@RequestParam boolean pinned,
+                                                @RequestParam int from,
+                                                @RequestParam(defaultValue = "10") int size) {
         return publicService.getCompilations();
     }
 
@@ -43,7 +50,8 @@ public class PublicController {
     }
 
     @GetMapping("/categories")
-    public List<CategoryDto> getCategories() {
+    public List<CategoryDto> getCategories(@RequestParam int from,
+                                           @RequestParam(defaultValue = "10") int size) {
         return publicService.getCategories();
     }
 

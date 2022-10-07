@@ -14,8 +14,10 @@ import ru.practicum.ewmservice.dto.user.UserDto;
 import ru.practicum.ewmservice.mapper.CategoryMapper;
 import ru.practicum.ewmservice.mapper.UserMapper;
 import ru.practicum.ewmservice.model.Category;
+import ru.practicum.ewmservice.model.Compilation;
 import ru.practicum.ewmservice.model.User;
 import ru.practicum.ewmservice.storage.CategoryRepository;
+import ru.practicum.ewmservice.storage.CompilationRepository;
 import ru.practicum.ewmservice.storage.UserRepository;
 
 import java.util.List;
@@ -26,11 +28,13 @@ public class AdminServiceImpl implements AdminService {
 
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final CompilationRepository compilationRepository;
 
     @Autowired
-    public AdminServiceImpl(CategoryRepository categoryRepository, UserRepository userRepository) {
+    public AdminServiceImpl(CategoryRepository categoryRepository, UserRepository userRepository, CompilationRepository compilationRepository) {
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
+        this.compilationRepository = compilationRepository;
     }
 
     @Override
@@ -62,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
     public CategoryDto createCategory(NewCategoryDto newCategoryDto) {
         Category newCategory = CategoryMapper.fromNewCategoryDto(newCategoryDto);
         newCategory = categoryRepository.save(newCategory);
-        log.debug("NEW CATEGORY {} CREATED", newCategory.getName());
+        log.debug("New category {} with id:{} created", newCategory.getName(), newCategory.getId());
         return CategoryMapper.toCategoryDto(newCategory);
     }
 
@@ -80,13 +84,14 @@ public class AdminServiceImpl implements AdminService {
     public UserDto createUser(NewUserRequest userRequest) {
         User newUser = UserMapper.fromNewUserRequest(userRequest);
         newUser = userRepository.save(newUser);
-        log.debug("NEW USER {} CREATED", newUser.getName());
+        log.debug("New user {} created", newUser.getName());
         return UserMapper.toUserDto(newUser);
     }
 
     @Override
     public void deleteUser(long userId) {
-
+        userRepository.deleteById(userId);
+        log.debug("User id:{} deleted", userId);
     }
 
     @Override
@@ -96,7 +101,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteCompilation(long compId) {
-
+        compilationRepository.deleteById(compId);
+        log.debug("Compilation id:{} deleted", compId);
     }
 
     @Override
@@ -111,11 +117,15 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void unpinCompilation(long compId) {
-
+        Compilation compToUnpin = compilationRepository.findById(compId).orElseThrow();
+        compToUnpin.setPinned(false);
+        compilationRepository.save(compToUnpin);
     }
 
     @Override
     public void pinCompilation(long compId) {
-
+        Compilation compToPin = compilationRepository.findById(compId).orElseThrow();
+        compToPin.setPinned(true);
+        compilationRepository.save(compToPin);
     }
 }
