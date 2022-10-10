@@ -41,7 +41,7 @@ public class PublicController {
     public List<CompilationDto> getCompilations(@RequestParam boolean pinned,
                                                 @RequestParam int from,
                                                 @RequestParam(defaultValue = "10") int size) {
-        return publicService.getCompilations();
+        return publicService.getCompilations(pinned, from, size);
     }
 
     @GetMapping("/compilations/{compId}")
@@ -52,7 +52,7 @@ public class PublicController {
     @GetMapping("/categories")
     public List<CategoryDto> getCategories(@RequestParam int from,
                                            @RequestParam(defaultValue = "10") int size) {
-        return publicService.getCategories();
+        return publicService.getCategories(from, size);
     }
 
     @GetMapping("/categories/{catId}")
