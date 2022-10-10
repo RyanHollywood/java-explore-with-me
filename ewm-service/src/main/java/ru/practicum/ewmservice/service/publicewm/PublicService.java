@@ -8,7 +8,15 @@ import ru.practicum.ewmservice.dto.event.EventShortDto;
 import java.util.List;
 
 public interface PublicService {
-    List<EventShortDto> getEvents();
+    List<EventShortDto> getEvents(String text,
+                                  List<Long> categories,
+                                  boolean paid,
+                                  String rangeStart,
+                                  String rangeEnd,
+                                  boolean onlyAvailable,
+                                  String sort,
+                                  int from,
+                                  int size);
 
     EventFullDto getEvent(long id);
 

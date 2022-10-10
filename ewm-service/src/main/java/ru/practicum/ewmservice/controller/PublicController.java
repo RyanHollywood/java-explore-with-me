@@ -29,7 +29,7 @@ public class PublicController {
                                          @RequestParam String sort,
                                          @RequestParam int from,
                                          @RequestParam(defaultValue = "10") int size) {
-        return publicService.getEvents();
+        return publicService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
     }
 
     @GetMapping("/events/{id}")
