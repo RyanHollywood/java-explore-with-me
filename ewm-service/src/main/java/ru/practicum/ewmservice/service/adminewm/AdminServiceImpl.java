@@ -12,15 +12,15 @@ import ru.practicum.ewmservice.dto.event.AdminUpdateEventRequestDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.user.NewUserRequest;
 import ru.practicum.ewmservice.dto.user.UserDto;
-import ru.practicum.ewmservice.mapper.CategoryMapper;
-import ru.practicum.ewmservice.mapper.EventMapper;
-import ru.practicum.ewmservice.mapper.UserMapper;
+import ru.practicum.ewmservice.mapper.*;
 import ru.practicum.ewmservice.model.*;
 import ru.practicum.ewmservice.storage.CategoryRepository;
 import ru.practicum.ewmservice.storage.CompilationRepository;
 import ru.practicum.ewmservice.storage.EventRepository;
 import ru.practicum.ewmservice.storage.UserRepository;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,8 +52,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public EventFullDto editEvent(long eventId, AdminUpdateEventRequestDto requestDto) {
+        Event eventToEdit = eventRepository.findById(eventId).orElseThrow();
+        eventToEdit = updateEvent(eventToEdit, requestDto);
+        eventToEdit = eventRepository.save(eventToEdit);
         log.debug("");
-        return null;
+        return EventMapper.toEventFullDto(eventToEdit);
     }
 
     @Override
@@ -74,9 +77,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public CategoryDto updateCategory(CategoryDto CategoryDto) {
+    public CategoryDto updateCategory(CategoryDto categoryDto) {
+        Category categoryToUpdate = categoryRepository.findById(categoryDto.getId()).orElseThrow();
+        categoryToUpdate = updateCategory(categoryToUpdate, categoryDto);
+        categoryToUpdate = categoryRepository.save(categoryToUpdate);
         log.debug("");
-        return null;
+        return CategoryMapper.toCategoryDto(categoryToUpdate);
     }
 
     @Override
@@ -115,9 +121,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public CompilationDto createCompilation(NewCompilationDto compilationDto) {
+    public CompilationDto createCompilation(NewCompilationDto newCompilationDto) {
+        Compilation newCompilation = CompilationMapper.toCompilation(newCompilationDto);
+        newCompilation.setEvents(getEventsByIds(newCompilationDto.getEvents()));
+        newCompilation = compilationRepository.save(newCompilation);
         log.debug("");
-        return null;
+        return CompilationMapper.toCompilationDto(newCompilation);
     }
 
     @Override
@@ -130,6 +139,11 @@ public class AdminServiceImpl implements AdminService {
     public void deleteEventFromCompilation(long compId, long eventId) {
         Compilation compilation = compilationRepository.findById(compId).orElseThrow();
         List<Event> events = compilation.getEvents();
+        events = events.stream()
+                .filter(event -> event.getId() != eventId)
+                .collect(Collectors.toList());
+        compilation.setEvents(events);
+        compilationRepository.save(compilation);
         log.debug("");
     }
 
@@ -170,5 +184,28 @@ public class AdminServiceImpl implements AdminService {
         return users.stream()
                 .map(UserMapper::toUserDto)
                 .collect(Collectors.toList());
+    }
+
+    private List<Event> getEventsByIds(List<Long> eventIds) {
+        return eventRepository.findEventsByIdIn(eventIds);
+    }
+
+    private Event updateEvent(Event event, AdminUpdateEventRequestDto eventRequestDto) {
+        event.setAnnotation(eventRequestDto.getAnnotation());
+        event.setCategory(categoryRepository.findById(eventRequestDto.getCategory()).orElseThrow());
+        event.setDescription(eventRequestDto.getDescription());
+        event.setEventDate(LocalDateTime.parse(eventRequestDto.getEventDate(),
+                DateTimeFormatter.ofPattern(DateTimePattern.pattern)));
+        event.setLocation(LocationMapper.toLocation(eventRequestDto.getLocation()));
+        event.setPaid(eventRequestDto.isPaid());
+        event.setParticipantLimit(eventRequestDto.getParticipantLimit());
+        event.setRequestModeration(eventRequestDto.isRequestModeration());
+        event.setTitle(eventRequestDto.getTitle());
+        return event;
+    }
+
+    private Category updateCategory(Category category, CategoryDto categoryDto) {
+        category.setName(category.getName());
+        return category;
     }
 }

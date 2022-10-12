@@ -16,7 +16,7 @@ public class EventMapper {
                 .description(newEventDto.getDescription())
                 .eventDate(LocalDateTime.parse(newEventDto.getEventDate(),
                         DateTimeFormatter.ofPattern(DateTimePattern.pattern)))
-                .location(LocationMapper.fromLocationDto(newEventDto.getLocation()))
+                .location(LocationMapper.toLocation(newEventDto.getLocation()))
                 .paid(newEventDto.isPaid())
                 .participantLimit(newEventDto.getParticipantLimit())
                 .requestModeration(newEventDto.isRequestModeration())

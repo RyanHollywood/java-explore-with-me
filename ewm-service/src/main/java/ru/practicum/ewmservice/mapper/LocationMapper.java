@@ -5,7 +5,7 @@ import ru.practicum.ewmservice.model.Location;
 
 public class LocationMapper {
 
-    public static Location fromLocationDto(LocationDto locationDto) {
+    public static Location toLocation(LocationDto locationDto) {
         return Location.builder()
                 .lat(locationDto.getLat())
                 .lon(locationDto.getLon())
