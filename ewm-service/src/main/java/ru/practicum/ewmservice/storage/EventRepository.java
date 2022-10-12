@@ -16,11 +16,11 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE (LCASE(annotation) LIKE LCASE(CONCAT('%', :text, '%')) OR LCASE(description) LIKE LCASE(CONCAT('%', :text, '%'))) AND " +
             "category_id IN :categories AND " +
             "paid = :paid AND " +
-            "timestamp BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) AND " +
-            "state = 'PUBLISHED'" +
+            "AND confirmed_requests < participant_limit AND " +
+            "event_date BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) AND " +
             "ORDER BY :sort;"
             , nativeQuery = true)
-    List<Event> getEventsPublishedByTextCategoryDateSorted(String text, List<Long> categories, boolean paid, String rangeStart,
+    List<Event> getEventsPublicAvailable(String text, List<Long> categories, boolean paid, String rangeStart,
                                                   String rangeEnd, String sort, PageRequest pageRequest);
 
     @Query(value = "SELECT * " +
@@ -28,9 +28,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE (LCASE(annotation) LIKE LCASE(CONCAT('%', :text, '%')) OR LCASE(description) LIKE LCASE(CONCAT('%', :text, '%'))) AND " +
             "category_id IN :categories AND " +
             "paid = :paid AND " +
-            "timestamp BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) " +
+            "event_date BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) AND " +
             "ORDER BY :sort;"
             , nativeQuery = true)
-    List<Event> getEventsByTextCategoryDateSorted(String text, List<Long> categories, boolean paid, String rangeStart,
-                                                           String rangeEnd, String sort, PageRequest pageRequest);
+    List<Event> getEventsPublicAll(String text, List<Long> categories, boolean paid, String rangeStart,
+                                         String rangeEnd, String sort, PageRequest pageRequest);
 }

@@ -45,13 +45,14 @@ public class PublicServiceImpl implements PublicService {
                                          String rangeEnd, boolean onlyAvailable, String sort, int from, int size) {
         List<Event> events;
         if (onlyAvailable) {
-            events = eventRepository.getEventsPublishedByTextCategoryDateSorted(text, categories, paid, rangeStart, rangeEnd,
-                    sort.toLowerCase(), PageRequest.of(from / size, size));
+            events = eventRepository.getEventsPublicAvailable(text, categories, paid, rangeStart, rangeEnd, sort,
+                    PageRequest.of(from / size, size));
+            log.debug("");
         } else {
-            events = eventRepository.getEventsByTextCategoryDateSorted(text, categories, paid, rangeStart, rangeEnd,
-                    sort.toLowerCase(), PageRequest.of(from / size, size));
+            events = eventRepository.getEventsPublicAll(text, categories, paid, rangeStart, rangeEnd, sort,
+                    PageRequest.of(from / size, size));
+            log.debug("");
         }
-        log.debug("");
         return toShortDtosList(events);
     }
 
