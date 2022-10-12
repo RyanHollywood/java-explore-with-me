@@ -205,7 +205,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     private Category updateCategory(Category category, CategoryDto categoryDto) {
-        category.setName(category.getName());
+        category.setName(categoryDto.getName());
         return category;
     }
 }
