@@ -43,8 +43,14 @@ public class PublicServiceImpl implements PublicService {
     @Override
     public List<EventShortDto> getEvents(String text, List<Long> categories, boolean paid, String rangeStart,
                                          String rangeEnd, boolean onlyAvailable, String sort, int from, int size) {
-        List<Event> events = eventRepository.getEventsByTextCategoryDateSorted(text, categories, paid, rangeStart, rangeEnd,
-                onlyAvailable, sort, PageRequest.of(from / size, size));
+        List<Event> events;
+        if (onlyAvailable) {
+            events = eventRepository.getEventsPublishedByTextCategoryDateSorted(text, categories, paid, rangeStart, rangeEnd,
+                    sort.toLowerCase(), PageRequest.of(from / size, size));
+        } else {
+            events = eventRepository.getEventsByTextCategoryDateSorted(text, categories, paid, rangeStart, rangeEnd,
+                    sort.toLowerCase(), PageRequest.of(from / size, size));
+        }
         log.debug("");
         return toShortDtosList(events);
     }

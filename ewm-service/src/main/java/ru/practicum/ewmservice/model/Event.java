@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "event")
 public class Event {
     @Column
     private String annotation;

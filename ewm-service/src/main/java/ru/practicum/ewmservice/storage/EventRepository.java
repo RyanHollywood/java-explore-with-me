@@ -11,7 +11,26 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    @Query(value = "", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM event " +
+            "WHERE (LCASE(annotation) LIKE LCASE(CONCAT('%', :text, '%')) OR LCASE(description) LIKE LCASE(CONCAT('%', :text, '%'))) AND " +
+            "category_id IN :categories AND " +
+            "paid = :paid AND " +
+            "timestamp BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) AND " +
+            "state = 'PUBLISHED'" +
+            "ORDER BY :sort;"
+            , nativeQuery = true)
+    List<Event> getEventsPublishedByTextCategoryDateSorted(String text, List<Long> categories, boolean paid, String rangeStart,
+                                                  String rangeEnd, String sort, PageRequest pageRequest);
+
+    @Query(value = "SELECT * " +
+            "FROM event " +
+            "WHERE (LCASE(annotation) LIKE LCASE(CONCAT('%', :text, '%')) OR LCASE(description) LIKE LCASE(CONCAT('%', :text, '%'))) AND " +
+            "category_id IN :categories AND " +
+            "paid = :paid AND " +
+            "timestamp BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) " +
+            "ORDER BY :sort;"
+            , nativeQuery = true)
     List<Event> getEventsByTextCategoryDateSorted(String text, List<Long> categories, boolean paid, String rangeStart,
-                                                  String rangeEnd, boolean onlyAvailable, String sort, PageRequest pageRequest);
+                                                           String rangeEnd, String sort, PageRequest pageRequest);
 }

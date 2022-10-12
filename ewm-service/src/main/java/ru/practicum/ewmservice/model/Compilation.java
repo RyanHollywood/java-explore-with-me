@@ -14,12 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "compilation")
 public class Compilation {
 
     //why one-to-many? need fix
     @OneToMany
-    @JoinTable(name = "events",  joinColumns = @JoinColumn(name = "id"))
+    @JoinTable(name = "event",  joinColumns = @JoinColumn(name = "id"))
     private List<Event> events = new ArrayList<>();
 
     @Id
