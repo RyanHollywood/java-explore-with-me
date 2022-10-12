@@ -2,6 +2,7 @@ package ru.practicum.ewmservice.service.adminewm;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.category.NewCategoryDto;
@@ -12,59 +13,69 @@ import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.user.NewUserRequest;
 import ru.practicum.ewmservice.dto.user.UserDto;
 import ru.practicum.ewmservice.mapper.CategoryMapper;
+import ru.practicum.ewmservice.mapper.EventMapper;
 import ru.practicum.ewmservice.mapper.UserMapper;
-import ru.practicum.ewmservice.model.Category;
-import ru.practicum.ewmservice.model.Compilation;
-import ru.practicum.ewmservice.model.User;
+import ru.practicum.ewmservice.model.*;
 import ru.practicum.ewmservice.storage.CategoryRepository;
 import ru.practicum.ewmservice.storage.CompilationRepository;
+import ru.practicum.ewmservice.storage.EventRepository;
 import ru.practicum.ewmservice.storage.UserRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class AdminServiceImpl implements AdminService {
 
+    private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final CompilationRepository compilationRepository;
 
     @Autowired
-    public AdminServiceImpl(CategoryRepository categoryRepository, UserRepository userRepository, CompilationRepository compilationRepository) {
+    public AdminServiceImpl(EventRepository eventRepository, CategoryRepository categoryRepository, UserRepository userRepository,
+                            CompilationRepository compilationRepository) {
+        this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.compilationRepository = compilationRepository;
     }
 
     @Override
-    public List<EventFullDto> getEvents(List<Long> users,
-                                        List<String> states,
-                                        List<Long> categories,
-                                        String rangeStart,
-                                        String rangeEnd,
-                                        int from,
-                                        int size) {
-        return null;
+    public List<EventFullDto> getEvents(List<Long> users, List<String> states, List<Long> categories, String rangeStart,
+                                        String rangeEnd, int from, int size) {
+        List<Event> events = eventRepository.getEventsAdmin(users, states, categories, rangeStart, rangeEnd, PageRequest.of(from / size, size));
+        log.debug("");
+        return toEventFullDtos(events);
     }
 
     @Override
     public EventFullDto editEvent(long eventId, AdminUpdateEventRequestDto requestDto) {
+        log.debug("");
         return null;
     }
 
     @Override
     public EventFullDto publishEvent(long eventId) {
-        return null;
+        Event eventToPublish = eventRepository.findById(eventId).orElseThrow();
+        eventToPublish.setState(EventState.PUBLISHED);
+        eventRepository.save(eventToPublish);
+        log.debug("");
+        return EventMapper.toEventFullDto(eventToPublish);
     }
 
     @Override
     public EventFullDto rejectEvent(long eventId) {
-        return null;
+        Event eventToReject = eventRepository.findById(eventId).orElseThrow();
+        eventToReject.setState(EventState.CANCELED);
+        log.debug("");
+        return EventMapper.toEventFullDto(eventToReject);
     }
 
     @Override
     public CategoryDto updateCategory(CategoryDto CategoryDto) {
+        log.debug("");
         return null;
     }
 
@@ -79,11 +90,14 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteCategory(long catId) {
         categoryRepository.deleteById(catId);
+        log.debug("");
     }
 
     @Override
     public List<UserDto> getUsers(List<Long> ids, int from, int size) {
-        return null;
+        List<User> users = userRepository.findByIdIn(ids, PageRequest.of(from / size, size));
+        log.debug("");
+        return toUserDtos(users);
     }
 
     @Override
@@ -102,6 +116,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public CompilationDto createCompilation(NewCompilationDto compilationDto) {
+        log.debug("");
         return null;
     }
 
@@ -113,12 +128,20 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteEventFromCompilation(long compId, long eventId) {
-
+        Compilation compilation = compilationRepository.findById(compId).orElseThrow();
+        List<Event> events = compilation.getEvents();
+        log.debug("");
     }
 
     @Override
     public void addEventToCompilation(long compId, long eventId) {
-
+        Event eventToAdd = eventRepository.findById(eventId).orElseThrow();
+        Compilation compilation = compilationRepository.findById(compId).orElseThrow();
+        List<Event> events = compilation.getEvents();
+        events.add(eventToAdd);
+        compilation.setEvents(events);
+        compilationRepository.save(compilation);
+        log.debug("");
     }
 
     @Override
@@ -126,6 +149,7 @@ public class AdminServiceImpl implements AdminService {
         Compilation compToUnpin = compilationRepository.findById(compId).orElseThrow();
         compToUnpin.setPinned(false);
         compilationRepository.save(compToUnpin);
+        log.debug("");
     }
 
     @Override
@@ -133,5 +157,18 @@ public class AdminServiceImpl implements AdminService {
         Compilation compToPin = compilationRepository.findById(compId).orElseThrow();
         compToPin.setPinned(true);
         compilationRepository.save(compToPin);
+        log.debug("");
+    }
+
+    private List<EventFullDto> toEventFullDtos(List<Event> events) {
+        return events.stream()
+                .map(EventMapper::toEventFullDto)
+                .collect(Collectors.toList());
+    }
+
+    private List<UserDto> toUserDtos(List<User> users) {
+        return users.stream()
+                .map(UserMapper::toUserDto)
+                .collect(Collectors.toList());
     }
 }
