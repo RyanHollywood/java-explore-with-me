@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 public class Compilation {
 
-    //why one-to-many? need fix
     @OneToMany
     @JoinTable(name = "event",  joinColumns = @JoinColumn(name = "id"))
     private List<Event> events = new ArrayList<>();

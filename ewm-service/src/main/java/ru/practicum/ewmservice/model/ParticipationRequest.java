@@ -19,8 +19,6 @@ public class ParticipationRequest {
     private LocalDateTime created;
 
     @ManyToOne
-    @Column
-    @JoinTable(name = "event")
     private Event event;
 
     @Id
@@ -28,8 +26,6 @@ public class ParticipationRequest {
     private long id;
 
     @ManyToOne
-    @Column
-    @JoinTable(name = "user")
     private User requester;
 
     @Column
