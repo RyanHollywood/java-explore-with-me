@@ -4,7 +4,7 @@ import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
 import ru.practicum.ewmservice.dto.event.UpdateEventRequest;
-import ru.practicum.ewmservice.dto.partition.ParticipationRequestDto;
+import ru.practicum.ewmservice.dto.request.ParticipationRequestDto;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public interface PrivateService {
 
     List<ParticipationRequestDto> getUserRequests(long userId);
 
-    ParticipationRequestDto postUserRequest(long userId);
+    ParticipationRequestDto postUserRequest(long userId, long eventId);
 
     ParticipationRequestDto cancelUserRequest(long userId, long reqId);
 }

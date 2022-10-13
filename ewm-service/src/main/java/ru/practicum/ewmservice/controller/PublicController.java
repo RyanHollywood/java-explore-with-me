@@ -1,22 +1,27 @@
 package ru.practicum.ewmservice.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.ewmservice.client.StatsClient;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.service.publicewm.PublicServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping
 public class PublicController {
 
-    final PublicServiceImpl publicService;
+    private final PublicServiceImpl publicService;
+    private final StatsClient statsClient;
 
-    public PublicController(PublicServiceImpl publicService) {
+    public PublicController(PublicServiceImpl publicService, StatsClient statsClient) {
         this.publicService = publicService;
+        this.statsClient = statsClient;
     }
 
     @GetMapping("/events")
@@ -28,12 +33,15 @@ public class PublicController {
                                          @RequestParam boolean onlyAvailable,
                                          @RequestParam String sort,
                                          @RequestParam int from,
-                                         @RequestParam(defaultValue = "10") int size) {
+                                         @RequestParam(defaultValue = "10") int size,
+                                         HttpServletRequest request) {
+        statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         return publicService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
     }
 
     @GetMapping("/events/{id}")
-    public EventFullDto getEvent(@PathVariable long id) {
+    public EventFullDto getEvent(@PathVariable long id, HttpServletRequest request) {
+        statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         return publicService.getEvent(id);
     }
 

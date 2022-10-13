@@ -5,7 +5,7 @@ import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
 import ru.practicum.ewmservice.dto.event.UpdateEventRequest;
-import ru.practicum.ewmservice.dto.partition.ParticipationRequestDto;
+import ru.practicum.ewmservice.dto.request.ParticipationRequestDto;
 import ru.practicum.ewmservice.service.privateewm.PrivateServiceImpl;
 
 import java.util.List;
@@ -77,8 +77,9 @@ public class PrivateController {
     }
 
     @PostMapping("/{userId}/requests")
-    public ParticipationRequestDto postUserRequest(@PathVariable long userId) {
-        return privateService.postUserRequest(userId);
+    public ParticipationRequestDto postUserRequest(@PathVariable long userId,
+                                                   @RequestParam long eventId) {
+        return privateService.postUserRequest(userId, eventId);
     }
 
     @PatchMapping("/{userId}/requests/{reqId}/cancel")

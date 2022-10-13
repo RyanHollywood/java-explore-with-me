@@ -1,8 +1,10 @@
-package ru.practicum.ewmservice.dto.partition;
+package ru.practicum.ewmservice.dto.request;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class ParticipationRequestDto {
     private String created;
     private long event;
