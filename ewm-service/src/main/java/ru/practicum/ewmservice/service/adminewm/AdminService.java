@@ -12,13 +12,8 @@ import ru.practicum.ewmservice.dto.user.UserDto;
 import java.util.List;
 
 public interface AdminService {
-    List<EventFullDto> getEvents(List<Long> users,
-                                 List<String> states,
-                                 List<Long> categories,
-                                 String rangeStart,
-                                 String rangeEnd,
-                                 int from,
-                                 int size);
+    List<EventFullDto> getEvents(List<Long> users, List<String> states, List<Long> categories, String rangeStart,
+                                 String rangeEnd, int from, int size);
 
     EventFullDto editEvent(long eventId, AdminUpdateEventRequestDto requestDto);
 

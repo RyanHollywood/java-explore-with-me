@@ -15,9 +15,11 @@ public class StatsClient {
     private final WebClient webClient;
     private final String serverPort;
     private final String app;
+    private final String pattern;
 
-    public StatsClient(@Value("${stats.port}") String serverPort,
-                       @Value("${stats.app}") String app) {
+    public StatsClient(@Value("${stats.port}") String serverPort, @Value("${stats.app}") String app,
+                       @Value("${date.time.pattern}") String pattern) {
+        this.pattern = pattern;
         this.webClient = WebClient.create();
         this.serverPort = serverPort;
         this.app = app;
@@ -34,7 +36,7 @@ public class StatsClient {
                 .post()
                 .uri("http://localhost:{serverPort}/hit", serverPort)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(HitMapper.toHitDto(info))
+                .bodyValue(HitMapper.toHitDto(info, pattern))
                 .retrieve();
     }
 }

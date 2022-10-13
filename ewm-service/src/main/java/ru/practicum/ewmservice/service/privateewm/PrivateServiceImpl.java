@@ -1,6 +1,7 @@
 package ru.practicum.ewmservice.service.privateewm;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
@@ -8,7 +9,6 @@ import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
 import ru.practicum.ewmservice.dto.event.UpdateEventRequest;
 import ru.practicum.ewmservice.dto.request.ParticipationRequestDto;
-import ru.practicum.ewmservice.mapper.DateTimePattern;
 import ru.practicum.ewmservice.mapper.EventMapper;
 import ru.practicum.ewmservice.mapper.ParticipationRequestMapper;
 import ru.practicum.ewmservice.model.Event;
@@ -34,13 +34,15 @@ public class PrivateServiceImpl implements PrivateService {
     private final UserRepository userRepository;
     private final ParticipationRequestRepository requestRepository;
     private final ParticipationRequestStatus defaultStatus = ParticipationRequestStatus.PENDING;
+    private final String pattern;
 
     public PrivateServiceImpl(EventRepository eventRepository, CategoryRepository categoryRepository, UserRepository userRepository,
-                              ParticipationRequestRepository requestRepository) {
+                              ParticipationRequestRepository requestRepository, @Value("${date.time.pattern}") String pattern) {
         this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.requestRepository = requestRepository;
+        this.pattern = pattern;
     }
 
     @Override
@@ -56,24 +58,24 @@ public class PrivateServiceImpl implements PrivateService {
         eventToUpdate = updateEvent(eventToUpdate, eventRequest);
         eventToUpdate = eventRepository.save(eventToUpdate);
         log.debug("");
-        return EventMapper.toEventFullDto(eventToUpdate);
+        return EventMapper.toEventFullDto(eventToUpdate, pattern);
     }
 
     @Override
     public EventFullDto postEvent(long userId, NewEventDto newEventDto) {
-        Event newEvent = EventMapper.fromNewEventDto(newEventDto);
+        Event newEvent = EventMapper.fromNewEventDto(newEventDto, pattern);
         newEvent.setInitiator(userRepository.findById(userId).orElseThrow());
         newEvent.setState(EventState.PENDING);
         newEvent = eventRepository.save(newEvent);
         log.debug("");
-        return EventMapper.toEventFullDto(newEvent);
+        return EventMapper.toEventFullDto(newEvent, pattern);
     }
 
     @Override
     public EventFullDto getUserEvent(long userId, long eventId) {
         Event event = eventRepository.findById(eventId).orElseThrow();
         log.debug("");
-        return EventMapper.toEventFullDto(event);
+        return EventMapper.toEventFullDto(event, pattern);
     }
 
     @Override
@@ -82,7 +84,7 @@ public class PrivateServiceImpl implements PrivateService {
         eventToCancel.setState(EventState.CANCELED);
         eventToCancel = eventRepository.save(eventToCancel);
         log.debug("");
-        return EventMapper.toEventFullDto(eventToCancel);
+        return EventMapper.toEventFullDto(eventToCancel, pattern);
     }
 
     @Override
@@ -98,7 +100,7 @@ public class PrivateServiceImpl implements PrivateService {
         requestToConfirm.setStatus(ParticipationRequestStatus.CONFIRMED);
         requestToConfirm = requestRepository.save(requestToConfirm);
         log.debug("");
-        return ParticipationRequestMapper.toParticipationRequestDto(requestToConfirm);
+        return ParticipationRequestMapper.toParticipationRequestDto(requestToConfirm, pattern);
     }
 
     @Override
@@ -107,7 +109,7 @@ public class PrivateServiceImpl implements PrivateService {
         requestToReject.setStatus(ParticipationRequestStatus.REJECTED);
         requestToReject = requestRepository.save(requestToReject);
         log.debug("");
-        return ParticipationRequestMapper.toParticipationRequestDto(requestToReject);
+        return ParticipationRequestMapper.toParticipationRequestDto(requestToReject, pattern);
     }
 
     @Override
@@ -127,7 +129,7 @@ public class PrivateServiceImpl implements PrivateService {
                 .build();
         newRequest = requestRepository.save(newRequest);
         log.debug("");
-        return ParticipationRequestMapper.toParticipationRequestDto(newRequest);
+        return ParticipationRequestMapper.toParticipationRequestDto(newRequest, pattern);
     }
 
     @Override
@@ -136,18 +138,18 @@ public class PrivateServiceImpl implements PrivateService {
         requestToCancel.setStatus(ParticipationRequestStatus.REJECTED);
         requestToCancel = requestRepository.save(requestToCancel);
         log.debug("");
-        return ParticipationRequestMapper.toParticipationRequestDto(requestToCancel);
+        return ParticipationRequestMapper.toParticipationRequestDto(requestToCancel, pattern);
     }
 
     private List<EventShortDto> toEventShortDtos(List<Event> events) {
         return events.stream()
-                .map(EventMapper::toEventShortDto)
+                .map(event -> EventMapper.toEventShortDto(event, pattern))
                 .collect(Collectors.toList());
     }
 
     private List<ParticipationRequestDto> toParticipationRequestDtos(List<ParticipationRequest> requests) {
         return requests.stream()
-                .map(ParticipationRequestMapper::toParticipationRequestDto)
+                .map(request -> ParticipationRequestMapper.toParticipationRequestDto(request, pattern))
                 .collect(Collectors.toList());
     }
 
@@ -155,7 +157,7 @@ public class PrivateServiceImpl implements PrivateService {
         event.setAnnotation(eventRequest.getAnnotation());
         event.setCategory(categoryRepository.findById(eventRequest.getEventId()).orElseThrow());
         event.setDescription(eventRequest.getDescription());
-        event.setEventDate(LocalDateTime.parse(eventRequest.getEventDate(), DateTimeFormatter.ofPattern(DateTimePattern.pattern)));
+        event.setEventDate(LocalDateTime.parse(eventRequest.getEventDate(), DateTimeFormatter.ofPattern(pattern)));
         event.setPaid(eventRequest.isPaid());
         event.setParticipantLimit(eventRequest.getParticipantLimit());
         event.setTitle(eventRequest.getTitle());

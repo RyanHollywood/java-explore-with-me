@@ -18,18 +18,18 @@ public class CompilationMapper {
                 .build();
     }
 
-    public static CompilationDto toCompilationDto(Compilation compilation) {
+    public static CompilationDto toCompilationDto(Compilation compilation, String pattern) {
         return CompilationDto.builder()
-                .events(toEventShortDtos(compilation.getEvents()))
+                .events(toEventShortDtos(compilation.getEvents(), pattern))
                 .id(compilation.getId())
                 .pinned(compilation.isPinned())
                 .title(compilation.getTitle())
                 .build();
     }
 
-    private static List<EventShortDto> toEventShortDtos(List<Event> events) {
+    private static List<EventShortDto> toEventShortDtos(List<Event> events, String pattern) {
         return events.stream()
-                .map(EventMapper::toEventShortDto)
+                .map(event -> EventMapper.toEventShortDto(event, pattern))
                 .collect(Collectors.toList());
     }
 }

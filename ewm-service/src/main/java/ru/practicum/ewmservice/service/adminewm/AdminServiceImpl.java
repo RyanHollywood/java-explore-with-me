@@ -2,6 +2,7 @@ package ru.practicum.ewmservice.service.adminewm;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
@@ -32,14 +33,16 @@ public class AdminServiceImpl implements AdminService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final CompilationRepository compilationRepository;
+    private final String pattern;
 
     @Autowired
     public AdminServiceImpl(EventRepository eventRepository, CategoryRepository categoryRepository, UserRepository userRepository,
-                            CompilationRepository compilationRepository) {
+                            CompilationRepository compilationRepository, @Value("${date.time.pattern}") String pattern) {
         this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.compilationRepository = compilationRepository;
+        this.pattern = pattern;
     }
 
     @Override
@@ -56,7 +59,7 @@ public class AdminServiceImpl implements AdminService {
         eventToEdit = updateEvent(eventToEdit, requestDto);
         eventToEdit = eventRepository.save(eventToEdit);
         log.debug("");
-        return EventMapper.toEventFullDto(eventToEdit);
+        return EventMapper.toEventFullDto(eventToEdit, pattern);
     }
 
     @Override
@@ -65,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
         eventToPublish.setState(EventState.PUBLISHED);
         eventRepository.save(eventToPublish);
         log.debug("");
-        return EventMapper.toEventFullDto(eventToPublish);
+        return EventMapper.toEventFullDto(eventToPublish, pattern);
     }
 
     @Override
@@ -73,7 +76,7 @@ public class AdminServiceImpl implements AdminService {
         Event eventToReject = eventRepository.findById(eventId).orElseThrow();
         eventToReject.setState(EventState.CANCELED);
         log.debug("");
-        return EventMapper.toEventFullDto(eventToReject);
+        return EventMapper.toEventFullDto(eventToReject, pattern);
     }
 
     @Override
@@ -126,7 +129,7 @@ public class AdminServiceImpl implements AdminService {
         newCompilation.setEvents(getEventsByIds(newCompilationDto.getEvents()));
         newCompilation = compilationRepository.save(newCompilation);
         log.debug("");
-        return CompilationMapper.toCompilationDto(newCompilation);
+        return CompilationMapper.toCompilationDto(newCompilation, pattern);
     }
 
     @Override
@@ -176,7 +179,7 @@ public class AdminServiceImpl implements AdminService {
 
     private List<EventFullDto> toEventFullDtos(List<Event> events) {
         return events.stream()
-                .map(EventMapper::toEventFullDto)
+                .map(event -> EventMapper.toEventFullDto(event, pattern))
                 .collect(Collectors.toList());
     }
 
@@ -195,7 +198,7 @@ public class AdminServiceImpl implements AdminService {
         event.setCategory(categoryRepository.findById(eventRequestDto.getCategory()).orElseThrow());
         event.setDescription(eventRequestDto.getDescription());
         event.setEventDate(LocalDateTime.parse(eventRequestDto.getEventDate(),
-                DateTimeFormatter.ofPattern(DateTimePattern.pattern)));
+                DateTimeFormatter.ofPattern(pattern)));
         event.setLocation(LocationMapper.toLocation(eventRequestDto.getLocation()));
         event.setPaid(eventRequestDto.isPaid());
         event.setParticipantLimit(eventRequestDto.getParticipantLimit());

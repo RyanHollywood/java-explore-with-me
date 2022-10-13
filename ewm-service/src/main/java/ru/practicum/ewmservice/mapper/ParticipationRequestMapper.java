@@ -6,9 +6,9 @@ import ru.practicum.ewmservice.model.ParticipationRequest;
 import java.time.format.DateTimeFormatter;
 
 public class ParticipationRequestMapper {
-    public static ParticipationRequestDto toParticipationRequestDto(ParticipationRequest request) {
+    public static ParticipationRequestDto toParticipationRequestDto(ParticipationRequest request, String pattern) {
         return ParticipationRequestDto.builder()
-                .created(request.getCreated().format(DateTimeFormatter.ofPattern(DateTimePattern.pattern)))
+                .created(request.getCreated().format(DateTimeFormatter.ofPattern(pattern)))
                 .event(request.getEvent().getId())
                 .id(request.getId())
                 .requester(request.getRequester().getId())

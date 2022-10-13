@@ -2,6 +2,7 @@ package ru.practicum.ewmservice.service.publicewm;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,16 @@ public class PublicServiceImpl implements PublicService {
     private final CategoryRepository categoryRepository;
     private final CompilationRepository compilationRepository;
     private final EventRepository eventRepository;
+    private final String pattern;
 
     @Autowired
-    public PublicServiceImpl(StatsClient statsClient, CategoryRepository categoryRepository, CompilationRepository compilationRepository, EventRepository eventRepository) {
+    public PublicServiceImpl(StatsClient statsClient, CategoryRepository categoryRepository, CompilationRepository compilationRepository,
+                             EventRepository eventRepository, @Value("${date.time.pattern}") String pattern) {
         this.statsClient = statsClient;
         this.categoryRepository = categoryRepository;
         this.compilationRepository = compilationRepository;
         this.eventRepository = eventRepository;
+        this.pattern = pattern;
     }
 
     @Override
@@ -60,7 +64,7 @@ public class PublicServiceImpl implements PublicService {
     public EventFullDto getEvent(long id) {
         Event event = eventRepository.findById(id).orElseThrow();
         log.debug("");
-        return EventMapper.toEventFullDto(event);
+        return EventMapper.toEventFullDto(event, pattern);
     }
 
     @Override
@@ -74,7 +78,7 @@ public class PublicServiceImpl implements PublicService {
     public CompilationDto getCompilation(long compId) {
         Compilation compilation = compilationRepository.findById(compId).orElseThrow();
         log.debug("");
-        return CompilationMapper.toCompilationDto(compilation);
+        return CompilationMapper.toCompilationDto(compilation, pattern);
     }
 
     @Override
@@ -92,12 +96,14 @@ public class PublicServiceImpl implements PublicService {
     }
 
     private List<EventShortDto> toShortDtosList(List<Event> events) {
-        return events.stream().map(EventMapper::toEventShortDto).collect(Collectors.toList());
+        return events.stream()
+                .map(event -> EventMapper.toEventShortDto(event, pattern))
+                .collect(Collectors.toList());
     }
 
     private List<CompilationDto> toCompilationDto(Page<Compilation> compilations) {
         return compilations.stream()
-                .map(CompilationMapper::toCompilationDto)
+                .map(compilation -> CompilationMapper.toCompilationDto(compilation, pattern))
                 .collect(Collectors.toList());
     }
 

@@ -6,12 +6,12 @@ import ru.practicum.ewmservice.model.Hit;
 import java.time.format.DateTimeFormatter;
 
 public class HitMapper {
-    public static HitDto toHitDto(Hit hit) {
+    public static HitDto toHitDto(Hit hit, String pattern) {
         return HitDto.builder()
                 .app(hit.getApp())
                 .uri(hit.getUri())
                 .ip(hit.getIp())
-                .timestamp(hit.getTimestamp().format(DateTimeFormatter.ofPattern(DateTimePattern.pattern)))
+                .timestamp(hit.getTimestamp().format(DateTimeFormatter.ofPattern(pattern)))
                 .build();
     }
 }
