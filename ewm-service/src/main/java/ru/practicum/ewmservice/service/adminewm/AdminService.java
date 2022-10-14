@@ -21,6 +21,8 @@ public interface AdminService {
 
     EventFullDto rejectEvent(long eventId);
 
+    CategoryDto getCategoryById(long catId);
+
     CategoryDto updateCategory(CategoryDto categoryDto);
 
     CategoryDto createCategory(NewCategoryDto newCategoryDto);

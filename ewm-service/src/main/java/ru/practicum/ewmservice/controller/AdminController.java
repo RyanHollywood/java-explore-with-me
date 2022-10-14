@@ -50,6 +50,11 @@ public class AdminController {
         return adminService.rejectEvent(eventId);
     }
 
+    @GetMapping("/categories/{catId}")
+    public CategoryDto getCategory(@PathVariable long catId) {
+        return adminService.getCategoryById(catId);
+    }
+
     @PatchMapping("/categories")
     public CategoryDto patchCategory(@RequestBody CategoryDto categoryDto) {
         return adminService.updateCategory(categoryDto);

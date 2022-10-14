@@ -13,6 +13,7 @@ import ru.practicum.ewmservice.dto.event.AdminUpdateEventRequestDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.user.NewUserRequest;
 import ru.practicum.ewmservice.dto.user.UserDto;
+import ru.practicum.ewmservice.exception.model.NotFound;
 import ru.practicum.ewmservice.mapper.*;
 import ru.practicum.ewmservice.model.*;
 import ru.practicum.ewmservice.storage.CategoryRepository;
@@ -55,36 +56,44 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public EventFullDto editEvent(long eventId, AdminUpdateEventRequestDto requestDto) {
-        Event eventToEdit = eventRepository.findById(eventId).orElseThrow();
+        Event eventToEdit = getEvent(eventId);
         eventToEdit = updateEvent(eventToEdit, requestDto);
         eventToEdit = eventRepository.save(eventToEdit);
-        log.debug("");
+        log.debug("Event with id={} was edited.", eventId);
         return EventMapper.toEventFullDto(eventToEdit, pattern);
     }
 
     @Override
     public EventFullDto publishEvent(long eventId) {
-        Event eventToPublish = eventRepository.findById(eventId).orElseThrow();
+        Event eventToPublish = getEvent(eventId);
         eventToPublish.setState(EventState.PUBLISHED);
         eventRepository.save(eventToPublish);
-        log.debug("");
+        log.debug("Event with id={} was published.", eventId);
         return EventMapper.toEventFullDto(eventToPublish, pattern);
     }
 
     @Override
     public EventFullDto rejectEvent(long eventId) {
-        Event eventToReject = eventRepository.findById(eventId).orElseThrow();
+        Event eventToReject = getEvent(eventId);
         eventToReject.setState(EventState.CANCELED);
-        log.debug("");
+        log.debug("Event with id={} was rejected.", eventId);
         return EventMapper.toEventFullDto(eventToReject, pattern);
     }
 
     @Override
+    public CategoryDto getCategoryById(long catId) {
+        Category category = getCategory(catId);
+        log.debug("Category with id={} was found.", catId);
+        return CategoryMapper.toCategoryDto(category);
+    }
+
+
+    @Override
     public CategoryDto updateCategory(CategoryDto categoryDto) {
-        Category categoryToUpdate = categoryRepository.findById(categoryDto.getId()).orElseThrow();
+        Category categoryToUpdate = getCategory(categoryDto.getId());
         categoryToUpdate = updateCategory(categoryToUpdate, categoryDto);
         categoryToUpdate = categoryRepository.save(categoryToUpdate);
-        log.debug("");
+        log.debug("Category with id={} was updated.", categoryToUpdate.getId());
         return CategoryMapper.toCategoryDto(categoryToUpdate);
     }
 
@@ -92,14 +101,15 @@ public class AdminServiceImpl implements AdminService {
     public CategoryDto createCategory(NewCategoryDto newCategoryDto) {
         Category newCategory = CategoryMapper.fromNewCategoryDto(newCategoryDto);
         newCategory = categoryRepository.save(newCategory);
-        log.debug("New category {} with id:{} created", newCategory.getName(), newCategory.getId());
+        log.debug("New category {} with id={} created.", newCategory.getName(), newCategory.getId());
         return CategoryMapper.toCategoryDto(newCategory);
     }
 
     @Override
     public void deleteCategory(long catId) {
+        getCategory(catId);
         categoryRepository.deleteById(catId);
-        log.debug("");
+        log.debug("Category with id={} was deleted.", catId);
     }
 
     @Override
@@ -113,14 +123,15 @@ public class AdminServiceImpl implements AdminService {
     public UserDto createUser(NewUserRequest userRequest) {
         User newUser = UserMapper.fromNewUserRequest(userRequest);
         newUser = userRepository.save(newUser);
-        log.debug("New user {} created", newUser.getName());
+        log.debug("New user {} with id={} created.", newUser.getName(), newUser.getId());
         return UserMapper.toUserDto(newUser);
     }
 
     @Override
     public void deleteUser(long userId) {
+        getUser(userId);
         userRepository.deleteById(userId);
-        log.debug("User id:{} deleted", userId);
+        log.debug("User id={} deleted.", userId);
     }
 
     @Override
@@ -134,13 +145,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteCompilation(long compId) {
+        getCompilation(compId);
         compilationRepository.deleteById(compId);
         log.debug("Compilation id:{} deleted", compId);
     }
 
     @Override
     public void deleteEventFromCompilation(long compId, long eventId) {
-        Compilation compilation = compilationRepository.findById(compId).orElseThrow();
+        Compilation compilation = getCompilation(compId);
         List<Event> events = compilation.getEvents();
         events = events.stream()
                 .filter(event -> event.getId() != eventId)
@@ -152,8 +164,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void addEventToCompilation(long compId, long eventId) {
-        Event eventToAdd = eventRepository.findById(eventId).orElseThrow();
-        Compilation compilation = compilationRepository.findById(compId).orElseThrow();
+        Event eventToAdd = getEvent(eventId);
+        Compilation compilation = getCompilation(compId);
         List<Event> events = compilation.getEvents();
         events.add(eventToAdd);
         compilation.setEvents(events);
@@ -163,7 +175,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void unpinCompilation(long compId) {
-        Compilation compToUnpin = compilationRepository.findById(compId).orElseThrow();
+        Compilation compToUnpin = getCompilation(compId);
         compToUnpin.setPinned(false);
         compilationRepository.save(compToUnpin);
         log.debug("");
@@ -171,7 +183,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void pinCompilation(long compId) {
-        Compilation compToPin = compilationRepository.findById(compId).orElseThrow();
+        Compilation compToPin = getCompilation(compId);
         compToPin.setPinned(true);
         compilationRepository.save(compToPin);
         log.debug("");
@@ -210,5 +222,33 @@ public class AdminServiceImpl implements AdminService {
     private Category updateCategory(Category category, CategoryDto categoryDto) {
         category.setName(categoryDto.getName());
         return category;
+    }
+
+    private Event getEvent(long eventId) {
+        return eventRepository.findById(eventId).orElseThrow(() -> {
+            log.warn("Event with id={} was not found.", eventId);
+            throw new NotFound("Event with id=" + eventId + " was not found.");
+        });
+    }
+
+    private Category getCategory(long catId) {
+        return categoryRepository.findById(catId).orElseThrow(() -> {
+            log.warn("Category with id={} was not found.", catId);
+            throw new NotFound("Category with id=" + catId + " was not found.");
+        });
+    }
+
+    private Compilation getCompilation(long compId) {
+        return compilationRepository.findById(compId).orElseThrow(() -> {
+            log.warn("Compilation with id={} was not found.", compId);
+            throw new NotFound("Compilation with id=" + compId + " was not found.");
+        });
+    }
+
+    private User getUser(long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> {
+            log.warn("User with id={} was not found.", userId);
+            throw new NotFound("User with id=" + userId + " was not found.");
+        });
     }
 }

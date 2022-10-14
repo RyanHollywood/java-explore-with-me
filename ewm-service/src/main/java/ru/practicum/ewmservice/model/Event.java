@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 public class Event {
-    @Column
+    @Column(length = 65555)
     private String annotation;
 
     @ManyToOne
@@ -27,7 +27,7 @@ public class Event {
     @Column
     private LocalDateTime createOn;
 
-    @Column
+    @Column(length = 65555)
     private String description;
 
     @Column

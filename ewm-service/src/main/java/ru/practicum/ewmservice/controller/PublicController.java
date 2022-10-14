@@ -17,11 +17,9 @@ import java.util.List;
 public class PublicController {
 
     private final PublicServiceImpl publicService;
-    private final StatsClient statsClient;
 
     public PublicController(PublicServiceImpl publicService, StatsClient statsClient) {
         this.publicService = publicService;
-        this.statsClient = statsClient;
     }
 
     @GetMapping("/events")
@@ -35,14 +33,12 @@ public class PublicController {
                                          @RequestParam int from,
                                          @RequestParam(defaultValue = "10") int size,
                                          HttpServletRequest request) {
-        statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
-        return publicService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+        return publicService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
     }
 
     @GetMapping("/events/{id}")
     public EventFullDto getEvent(@PathVariable long id, HttpServletRequest request) {
-        statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
-        return publicService.getEvent(id);
+        return publicService.getEvent(id, request);
     }
 
     @GetMapping("/compilations")

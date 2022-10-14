@@ -11,6 +11,7 @@ import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
+import ru.practicum.ewmservice.exception.model.NotFound;
 import ru.practicum.ewmservice.mapper.CategoryMapper;
 import ru.practicum.ewmservice.mapper.CompilationMapper;
 import ru.practicum.ewmservice.mapper.EventMapper;
@@ -21,6 +22,8 @@ import ru.practicum.ewmservice.storage.CategoryRepository;
 import ru.practicum.ewmservice.storage.CompilationRepository;
 import ru.practicum.ewmservice.storage.EventRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,8 +48,8 @@ public class PublicServiceImpl implements PublicService {
     }
 
     @Override
-    public List<EventShortDto> getEvents(String text, List<Long> categories, boolean paid, String rangeStart,
-                                         String rangeEnd, boolean onlyAvailable, String sort, int from, int size) {
+    public List<EventShortDto> getEvents(String text, List<Long> categories, boolean paid, String rangeStart, String rangeEnd,
+                                         boolean onlyAvailable, String sort, int from, int size, HttpServletRequest request) {
         List<Event> events;
         if (onlyAvailable) {
             events = eventRepository.getEventsPublicAvailable(text, categories, paid, rangeStart, rangeEnd, sort,
@@ -57,13 +60,18 @@ public class PublicServiceImpl implements PublicService {
                     PageRequest.of(from / size, size));
             log.debug("");
         }
+        statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         return toShortDtosList(events);
     }
 
     @Override
-    public EventFullDto getEvent(long id) {
-        Event event = eventRepository.findById(id).orElseThrow();
+    public EventFullDto getEvent(long eventId, HttpServletRequest request) {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> {
+            log.warn("Event with id={} was not found.", eventId);
+            throw new NotFound("Event with id=" + eventId + " was not found.");
+        });
         log.debug("");
+        statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         return EventMapper.toEventFullDto(event, pattern);
     }
 
@@ -76,7 +84,10 @@ public class PublicServiceImpl implements PublicService {
 
     @Override
     public CompilationDto getCompilation(long compId) {
-        Compilation compilation = compilationRepository.findById(compId).orElseThrow();
+        Compilation compilation = compilationRepository.findById(compId).orElseThrow(() -> {
+            log.warn("Compilation with id={} was not found.", compId);
+            throw new NotFound("Compilation with id=" + compId + " was not found.");
+        });
         log.debug("");
         return CompilationMapper.toCompilationDto(compilation, pattern);
     }
@@ -90,7 +101,10 @@ public class PublicServiceImpl implements PublicService {
 
     @Override
     public CategoryDto getCategory(long catId) {
-        Category category = categoryRepository.findById(catId).orElseThrow();
+        Category category = categoryRepository.findById(catId).orElseThrow(() -> {
+            log.warn("Category with id={} was not found.", catId);
+            throw new NotFound("Category with id=" + catId + " was not found.");
+        });
         log.debug("");
         return CategoryMapper.toCategoryDto(category);
     }

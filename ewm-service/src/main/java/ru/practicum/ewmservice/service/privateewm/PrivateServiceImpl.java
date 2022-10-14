@@ -9,16 +9,11 @@ import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
 import ru.practicum.ewmservice.dto.event.UpdateEventRequest;
 import ru.practicum.ewmservice.dto.request.ParticipationRequestDto;
+import ru.practicum.ewmservice.exception.model.NotFound;
 import ru.practicum.ewmservice.mapper.EventMapper;
 import ru.practicum.ewmservice.mapper.ParticipationRequestMapper;
-import ru.practicum.ewmservice.model.Event;
-import ru.practicum.ewmservice.model.EventState;
-import ru.practicum.ewmservice.model.ParticipationRequest;
-import ru.practicum.ewmservice.model.ParticipationRequestStatus;
-import ru.practicum.ewmservice.storage.CategoryRepository;
-import ru.practicum.ewmservice.storage.EventRepository;
-import ru.practicum.ewmservice.storage.ParticipationRequestRepository;
-import ru.practicum.ewmservice.storage.UserRepository;
+import ru.practicum.ewmservice.model.*;
+import ru.practicum.ewmservice.storage.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,15 +28,17 @@ public class PrivateServiceImpl implements PrivateService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final ParticipationRequestRepository requestRepository;
+    private final LocationRepository locationRepository;
     private final ParticipationRequestStatus defaultStatus = ParticipationRequestStatus.PENDING;
     private final String pattern;
 
     public PrivateServiceImpl(EventRepository eventRepository, CategoryRepository categoryRepository, UserRepository userRepository,
-                              ParticipationRequestRepository requestRepository, @Value("${date.time.pattern}") String pattern) {
+                              ParticipationRequestRepository requestRepository, LocationRepository locationRepository, @Value("${date.time.pattern}") String pattern) {
         this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.requestRepository = requestRepository;
+        this.locationRepository = locationRepository;
         this.pattern = pattern;
     }
 
@@ -64,9 +61,14 @@ public class PrivateServiceImpl implements PrivateService {
     @Override
     public EventFullDto postEvent(long userId, NewEventDto newEventDto) {
         Event newEvent = EventMapper.fromNewEventDto(newEventDto, pattern);
-        newEvent.setInitiator(userRepository.findById(userId).orElseThrow());
+        newEvent.setInitiator(getUser(userId));
         newEvent.setState(EventState.PENDING);
+        Location newEventLocation = locationRepository.save(newEvent.getLocation());
+        newEvent.setLocation(newEventLocation);
+        Category newEventCategory = getCategory(newEventDto.getCategory());
+        newEvent.setCategory(newEventCategory);
         newEvent = eventRepository.save(newEvent);
+        newEvent.setCreateOn(LocalDateTime.now());
         log.debug("");
         return EventMapper.toEventFullDto(newEvent, pattern);
     }
@@ -162,5 +164,19 @@ public class PrivateServiceImpl implements PrivateService {
         event.setParticipantLimit(eventRequest.getParticipantLimit());
         event.setTitle(eventRequest.getTitle());
         return event;
+    }
+
+    private User getUser(long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> {
+            log.warn("User with id={} was not found.", userId);
+            throw new NotFound("User with id=" + userId + " was not found.");
+        });
+    }
+
+    private Category getCategory(long catId) {
+        return categoryRepository.findById(catId).orElseThrow(() -> {
+            log.warn("Category with id={} was not found.", catId);
+            throw new NotFound("Category with id=" + catId + " was not found.");
+        });
     }
 }
