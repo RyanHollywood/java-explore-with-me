@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.practicum.ewmservice.exception.model.BadRequest;
 import ru.practicum.ewmservice.exception.model.NotFound;
 
 @RestControllerAdvice
@@ -26,7 +27,20 @@ public class ExceptionController {
                 .message(exception.getMessage())
                 .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern(pattern)))
                 .build();
+         */
+        return "null";
+    }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.OK)
+    public String handleException(final BadRequest exception) {
+        /*
+        return ApiErrorDto.builder()
+                .status("FORBIDDEN")
+                .reason("For the requested operation the conditions are not met.")
+                .message(exception.getMessage())
+                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern(pattern)))
+                .build();
          */
         return "null";
     }

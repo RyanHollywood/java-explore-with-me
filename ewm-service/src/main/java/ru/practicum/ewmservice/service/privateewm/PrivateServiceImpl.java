@@ -9,13 +9,16 @@ import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
 import ru.practicum.ewmservice.dto.event.UpdateEventRequest;
 import ru.practicum.ewmservice.dto.request.ParticipationRequestDto;
+import ru.practicum.ewmservice.exception.model.BadRequest;
 import ru.practicum.ewmservice.exception.model.NotFound;
 import ru.practicum.ewmservice.mapper.EventMapper;
 import ru.practicum.ewmservice.mapper.ParticipationRequestMapper;
 import ru.practicum.ewmservice.model.*;
 import ru.practicum.ewmservice.storage.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,6 +71,9 @@ public class PrivateServiceImpl implements PrivateService {
         newEvent.setLocation(newEventLocation);
         newEvent.setCategory(newEventCategory);
         newEvent.setCreatedOn(LocalDateTime.now());
+        if (Duration.between(newEvent.getCreatedOn(), newEvent.getEventDate()).toHours() <= 2) {
+            throw new BadRequest("Creating event 2 hours before start is not allowed.");
+        }
         newEvent = eventRepository.save(newEvent);
         log.debug("Event with id={} was posted.", newEvent.getId());
         return EventMapper.toEventFullDto(newEvent, pattern);
