@@ -113,6 +113,8 @@ public class PrivateServiceImpl implements PrivateService {
             requestToConfirm.setStatus(ParticipationRequestStatus.CONFIRMED);
             event.setConfirmedRequests(event.getConfirmedRequests() + 1);
             eventRepository.save(event);
+        } else {
+            throw new BadRequest("Event participation limit has reached, request cannot be confirmed");
         }
         requestToConfirm = requestRepository.save(requestToConfirm);
         log.debug("Request with id={} was confirmed.", reqId);
