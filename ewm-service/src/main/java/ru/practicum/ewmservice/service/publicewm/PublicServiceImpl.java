@@ -24,6 +24,7 @@ import ru.practicum.ewmservice.storage.EventRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,14 +51,24 @@ public class PublicServiceImpl implements PublicService {
     @Override
     public List<EventShortDto> getEvents(String text, List<Long> categories, boolean paid, String rangeStart, String rangeEnd,
                                          boolean onlyAvailable, String sort, int from, int size, HttpServletRequest request) {
-        List<Event> events;
+        List<Event> events = new ArrayList<>();
         if (onlyAvailable) {
-            events = eventRepository.getEventsPublicAvailable(text, categories, paid, rangeStart, rangeEnd, sort.toLowerCase(),
-                    PageRequest.of(from / size, size));
+            if (sort.equals("EVENT_DATE")) {
+                events = eventRepository.getEventsPublicAvailableOrderByEventDate(text, categories, paid, rangeStart, rangeEnd,
+                        PageRequest.of(from / size, size));
+            } else if (sort.equals("VIEWS")) {
+                events = eventRepository.getEventsPublicAvailableOrderByViews(text, categories, paid, rangeStart, rangeEnd,
+                        PageRequest.of(from / size, size));
+            }
             log.debug("");
         } else {
-            events = eventRepository.getEventsPublicAll(text, categories, paid, rangeStart, rangeEnd, sort.toLowerCase(),
-                    PageRequest.of(from / size, size));
+            if (sort.equals("EVENT_DATE")) {
+                events = eventRepository.getEventsPublicAllOrderByEventDate(text, categories, paid, rangeStart, rangeEnd,
+                        PageRequest.of(from / size, size));
+            } else if(sort.equals("VIEWS")) {
+                events = eventRepository.getEventsPublicAllOrderByViews(text, categories, paid, rangeStart, rangeEnd,
+                        PageRequest.of(from / size, size));
+            }
             log.debug("");
         }
         statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
