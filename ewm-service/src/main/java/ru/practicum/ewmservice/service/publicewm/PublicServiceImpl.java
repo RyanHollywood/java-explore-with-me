@@ -65,7 +65,7 @@ public class PublicServiceImpl implements PublicService {
             if (sort.equals("EVENT_DATE")) {
                 events = eventRepository.getEventsPublicAllOrderByEventDate(text, categories, paid, rangeStart, rangeEnd,
                         PageRequest.of(from / size, size));
-            } else if(sort.equals("VIEWS")) {
+            } else if (sort.equals("VIEWS")) {
                 events = eventRepository.getEventsPublicAllOrderByViews(text, categories, paid, rangeStart, rangeEnd,
                         PageRequest.of(from / size, size));
             }
