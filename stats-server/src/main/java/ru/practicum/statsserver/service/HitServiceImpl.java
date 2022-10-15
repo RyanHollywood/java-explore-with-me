@@ -61,7 +61,7 @@ public class HitServiceImpl implements HitService {
                 statsList = toStats(hitRepository.getStatsByUris(start, end, uris));
             }
         }
-        statsList = fillWithWithNoHits(apps, uris, statsList);
+        statsList = fillWithWithNoHits(uris, statsList);
         return toStatsDtoList(statsList);
     }
 
@@ -77,8 +77,7 @@ public class HitServiceImpl implements HitService {
                 .collect(Collectors.toList());
     }
 
-    private List<Stats> fillWithWithNoHits(List<String> apps, List<String> uris, List<Stats> statsList) {
-        List<String> statsApps = new ArrayList<>();
+    private List<Stats> fillWithWithNoHits(List<String> uris, List<Stats> statsList) {
         List<String> statsUris = new ArrayList<>();
         for (Stats stats : statsList) {
             statsUris.add(stats.getUri());
