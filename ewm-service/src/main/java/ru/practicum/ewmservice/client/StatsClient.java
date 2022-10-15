@@ -25,7 +25,7 @@ public class StatsClient {
         this.pattern = pattern;
         this.webClient = WebClient.builder()
                 .baseUrl("http://localhost:9090")
-                .defaultHeader (HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         this.serverPort = serverPort;
         this.app = app;
