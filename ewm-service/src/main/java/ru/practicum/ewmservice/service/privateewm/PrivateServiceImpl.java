@@ -45,16 +45,16 @@ public class PrivateServiceImpl implements PrivateService {
     @Override
     public List<EventShortDto> getEvents(long userId, int from, int size) {
         List<Event> events = eventRepository.findEventsByInitiatorId(userId, PageRequest.of(from / size, size));
-        log.debug("");
+        log.debug("Events by user id={} were found.", userId);
         return toEventShortDtos(events);
     }
 
     @Override
     public EventFullDto updateEvent(long userId, UpdateEventRequest eventRequest) {
-        Event eventToUpdate = eventRepository.findById(eventRequest.getEventId()).orElseThrow();
+        Event eventToUpdate = getEvent(eventRequest.getEventId());
         eventToUpdate = updateEvent(eventToUpdate, eventRequest);
         eventToUpdate = eventRepository.save(eventToUpdate);
-        log.debug("");
+        log.debug("Event with id={} was updated.", eventToUpdate.getId());
         return EventMapper.toEventFullDto(eventToUpdate, pattern);
     }
 
@@ -69,55 +69,63 @@ public class PrivateServiceImpl implements PrivateService {
         newEvent.setCategory(newEventCategory);
         newEvent.setCreatedOn(LocalDateTime.now());
         newEvent = eventRepository.save(newEvent);
-        log.debug("");
+        log.debug("Event with id={} was posted.", newEvent.getId());
         return EventMapper.toEventFullDto(newEvent, pattern);
     }
 
     @Override
     public EventFullDto getUserEvent(long userId, long eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow();
-        log.debug("");
+        Event event = getEvent(eventId);
+        viewsCounter(event);
+        log.debug("Event with id={} was found.", eventId);
         return EventMapper.toEventFullDto(event, pattern);
     }
 
     @Override
     public EventFullDto cancelUserEvent(long userId, long eventId) {
         Event eventToCancel = getEvent(eventId);
-        eventToCancel.setState(EventState.CANCELED);
+        if (eventToCancel.getState().equals(EventState.PENDING)) {
+            eventToCancel.setState(EventState.CANCELED);
+        }
         eventToCancel = eventRepository.save(eventToCancel);
-        log.debug("");
+        log.debug("Event with id={} wad cancelled.", eventId);
         return EventMapper.toEventFullDto(eventToCancel, pattern);
     }
 
     @Override
     public List<ParticipationRequestDto> getEventRequests(long userId, long eventId) {
         List<ParticipationRequest> requests = requestRepository.findAllByEventId(eventId);
-        log.debug("");
+        log.debug("Requests for event id={} were found.", eventId);
         return toParticipationRequestDtos(requests);
     }
 
     @Override
     public ParticipationRequestDto confirmEventRequest(long userId, long eventId, long reqId) {
-        ParticipationRequest requestToConfirm = requestRepository.findById(reqId).orElseThrow();
-        requestToConfirm.setStatus(ParticipationRequestStatus.CONFIRMED);
+        ParticipationRequest requestToConfirm = getRequest(reqId);
+        Event event = getEvent(eventId);
+        if (event.getConfirmedRequests() < event.getParticipantLimit()) {
+            requestToConfirm.setStatus(ParticipationRequestStatus.CONFIRMED);
+            event.setConfirmedRequests(event.getConfirmedRequests() + 1);
+            eventRepository.save(event);
+        }
         requestToConfirm = requestRepository.save(requestToConfirm);
-        log.debug("");
+        log.debug("Request with id={} was confirmed.", reqId);
         return ParticipationRequestMapper.toParticipationRequestDto(requestToConfirm, pattern);
     }
 
     @Override
     public ParticipationRequestDto rejectEventRequest(long userId, long eventId, long reqId) {
-        ParticipationRequest requestToReject = requestRepository.findById(reqId).orElseThrow();
+        ParticipationRequest requestToReject = getRequest(reqId);
         requestToReject.setStatus(ParticipationRequestStatus.REJECTED);
         requestToReject = requestRepository.save(requestToReject);
-        log.debug("");
+        log.debug("Request with id={} was rejected.", reqId);
         return ParticipationRequestMapper.toParticipationRequestDto(requestToReject, pattern);
     }
 
     @Override
     public List<ParticipationRequestDto> getUserRequests(long userId) {
         List<ParticipationRequest> requests = requestRepository.findAllByRequesterId(userId);
-        log.debug("");
+        log.debug("User with id={} requests were found.", userId);
         return toParticipationRequestDtos(requests);
     }
 
@@ -125,22 +133,35 @@ public class PrivateServiceImpl implements PrivateService {
     public ParticipationRequestDto postUserRequest(long userId, long eventId) {
         ParticipationRequest newRequest = ParticipationRequest.builder()
                 .created(LocalDateTime.now())
-                .event(eventRepository.findById(eventId).orElseThrow())
-                .requester(userRepository.findById(userId).orElseThrow())
-                .status(defaultStatus)
+                .event(getEvent(eventId))
+                .requester(getUser(userId))
                 .build();
+        Event event = getEvent(eventId);
+        if (event.isRequestModeration()) {
+            newRequest.setStatus(defaultStatus);
+        } else {
+            newRequest.setStatus(ParticipationRequestStatus.CONFIRMED);
+            event.setConfirmedRequests(event.getConfirmedRequests() + 1);
+            eventRepository.save(event);
+        }
         newRequest = requestRepository.save(newRequest);
-        log.debug("");
+        log.debug("User with id={} request to event id={} was posted", userId, eventId);
         return ParticipationRequestMapper.toParticipationRequestDto(newRequest, pattern);
     }
 
     @Override
     public ParticipationRequestDto cancelUserRequest(long userId, long reqId) {
-        ParticipationRequest requestToCancel = requestRepository.findById(reqId).orElseThrow();
+        ParticipationRequest requestToCancel = getRequest(reqId);
         requestToCancel.setStatus(ParticipationRequestStatus.CANCELED);
         requestToCancel = requestRepository.save(requestToCancel);
-        log.debug("");
+        log.debug("Request with id={} was cancelled.", reqId);
         return ParticipationRequestMapper.toParticipationRequestDto(requestToCancel, pattern);
+    }
+
+    private void viewsCounter(Event event) {
+        event.setViews(event.getViews() + 1);
+        log.debug("Event with id={} views counter increased.", event.getId());
+        eventRepository.save(event);
     }
 
     private List<EventShortDto> toEventShortDtos(List<Event> events) {
@@ -183,6 +204,13 @@ public class PrivateServiceImpl implements PrivateService {
         return eventRepository.findById(eventId).orElseThrow(() -> {
             log.warn("Event with id={} was not found.", eventId);
             throw new NotFound("Event with id=" + eventId + " was not found.");
+        });
+    }
+
+    private ParticipationRequest getRequest(long reqId) {
+        return requestRepository.findById(reqId).orElseThrow(() -> {
+            log.warn("Participation request with id={} was not found.", reqId);
+            throw new NotFound("Participation request with id=" + reqId + " was not found.");
         });
     }
 }

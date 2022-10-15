@@ -56,20 +56,22 @@ public class PublicServiceImpl implements PublicService {
             if (sort.equals("EVENT_DATE")) {
                 events = eventRepository.getEventsPublicAvailableOrderByEventDate(text, categories, paid, rangeStart, rangeEnd,
                         PageRequest.of(from / size, size));
+                log.debug("Available events were found ordered by event date.");
             } else if (sort.equals("VIEWS")) {
                 events = eventRepository.getEventsPublicAvailableOrderByViews(text, categories, paid, rangeStart, rangeEnd,
                         PageRequest.of(from / size, size));
+                log.debug("Available events were found ordered by views.");
             }
-            log.debug("");
         } else {
             if (sort.equals("EVENT_DATE")) {
                 events = eventRepository.getEventsPublicAllOrderByEventDate(text, categories, paid, rangeStart, rangeEnd,
                         PageRequest.of(from / size, size));
+                log.debug("Events were found ordered by event date.");
             } else if (sort.equals("VIEWS")) {
                 events = eventRepository.getEventsPublicAllOrderByViews(text, categories, paid, rangeStart, rangeEnd,
                         PageRequest.of(from / size, size));
+                log.debug("Events were found ordered by views.");
             }
-            log.debug("");
         }
         statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         return toShortDtosList(events);
@@ -81,7 +83,8 @@ public class PublicServiceImpl implements PublicService {
             log.warn("Event with id={} was not found.", eventId);
             throw new NotFound("Event with id=" + eventId + " was not found.");
         });
-        log.debug("");
+        viewsCounter(event);
+        log.debug("Event with id={} were found.", eventId);
         statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         return EventMapper.toEventFullDto(event, pattern);
     }
@@ -89,7 +92,7 @@ public class PublicServiceImpl implements PublicService {
     @Override
     public List<CompilationDto> getCompilations(boolean pinned, int from, int size) {
         Page<Compilation> compilations = compilationRepository.findCompilationByPinned(pinned, PageRequest.of(from / size, size));
-        log.debug("");
+        log.debug("Compilations were found.");
         return toCompilationDto(compilations);
     }
 
@@ -99,14 +102,14 @@ public class PublicServiceImpl implements PublicService {
             log.warn("Compilation with id={} was not found.", compId);
             throw new NotFound("Compilation with id=" + compId + " was not found.");
         });
-        log.debug("");
+        log.debug("Compilation with id={} was found.", compId);
         return CompilationMapper.toCompilationDto(compilation, pattern);
     }
 
     @Override
     public List<CategoryDto> getCategories(int from, int size) {
         Page<Category> categories = categoryRepository.findAll(PageRequest.of(from / size, size));
-        log.debug("");
+        log.debug("Categories were found");
         return toCategoryDtos(categories);
     }
 
@@ -116,8 +119,14 @@ public class PublicServiceImpl implements PublicService {
             log.warn("Category with id={} was not found.", catId);
             throw new NotFound("Category with id=" + catId + " was not found.");
         });
-        log.debug("");
+        log.debug("Category with id={} was found.", catId);
         return CategoryMapper.toCategoryDto(category);
+    }
+
+    private void viewsCounter(Event event) {
+        event.setViews(event.getViews() + 1);
+        log.debug("Event with id={} views counter increased.", event.getId());
+        eventRepository.save(event);
     }
 
     private List<EventShortDto> toShortDtosList(List<Event> events) {

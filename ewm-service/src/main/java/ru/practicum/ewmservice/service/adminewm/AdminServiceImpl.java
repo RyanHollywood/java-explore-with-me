@@ -50,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
     public List<EventFullDto> getEvents(List<Long> users, List<String> states, List<Long> categories, String rangeStart,
                                         String rangeEnd, int from, int size) {
         List<Event> events = eventRepository.getEventsAdmin(users, states, categories, rangeStart, rangeEnd, PageRequest.of(from / size, size));
-        log.debug("");
+        log.debug("Events were found.");
         return toEventFullDtos(events);
     }
 
@@ -67,6 +67,7 @@ public class AdminServiceImpl implements AdminService {
     public EventFullDto publishEvent(long eventId) {
         Event eventToPublish = getEvent(eventId);
         eventToPublish.setState(EventState.PUBLISHED);
+        eventToPublish.setPublishedOn(LocalDateTime.now());
         eventRepository.save(eventToPublish);
         log.debug("Event with id={} was published.", eventId);
         return EventMapper.toEventFullDto(eventToPublish, pattern);
@@ -115,7 +116,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<UserDto> getUsers(List<Long> ids, int from, int size) {
         List<User> users = userRepository.findByIdIn(ids, PageRequest.of(from / size, size));
-        log.debug("");
+        log.debug("Users were found.");
         return toUserDtos(users);
     }
 
@@ -139,7 +140,7 @@ public class AdminServiceImpl implements AdminService {
         Compilation newCompilation = CompilationMapper.toCompilation(newCompilationDto);
         newCompilation.setEvents(getEventsByIds(newCompilationDto.getEvents()));
         newCompilation = compilationRepository.save(newCompilation);
-        log.debug("");
+        log.debug("New compilation with id={} created.", newCompilation.getId());
         return CompilationMapper.toCompilationDto(newCompilation, pattern);
     }
 
@@ -147,7 +148,7 @@ public class AdminServiceImpl implements AdminService {
     public void deleteCompilation(long compId) {
         getCompilation(compId);
         compilationRepository.deleteById(compId);
-        log.debug("Compilation id:{} deleted", compId);
+        log.debug("Compilation id:{} was deleted", compId);
     }
 
     @Override
@@ -159,7 +160,7 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
         compilation.setEvents(events);
         compilationRepository.save(compilation);
-        log.debug("");
+        log.debug("Event with id={} was deleted from compilation with id={}", eventId, compId);
     }
 
     @Override
@@ -170,7 +171,7 @@ public class AdminServiceImpl implements AdminService {
         events.add(eventToAdd);
         compilation.setEvents(events);
         compilationRepository.save(compilation);
-        log.debug("");
+        log.debug("Event with id={} was added to compilation with id={}", eventId, compId);
     }
 
     @Override
@@ -178,7 +179,7 @@ public class AdminServiceImpl implements AdminService {
         Compilation compToUnpin = getCompilation(compId);
         compToUnpin.setPinned(false);
         compilationRepository.save(compToUnpin);
-        log.debug("");
+        log.debug("Compilation with id={} was unpinned.", compId);
     }
 
     @Override
@@ -186,7 +187,7 @@ public class AdminServiceImpl implements AdminService {
         Compilation compToPin = getCompilation(compId);
         compToPin.setPinned(true);
         compilationRepository.save(compToPin);
-        log.debug("");
+        log.debug("Compilation with id={} was pinned.", compId);
     }
 
     private List<EventFullDto> toEventFullDtos(List<Event> events) {

@@ -7,6 +7,7 @@ import ru.practicum.ewmservice.model.Event;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class EventMapper {
 
@@ -37,7 +38,7 @@ public class EventMapper {
                 .location(LocationMapper.toLocationDto(event.getLocation()))
                 .paid(event.isPaid())
                 .participantLimit(event.getParticipantLimit())
-                .publishedOn(event.getPublishedOn())
+                .publishedOn(getPublishedOn(event, pattern))
                 .requestModeration(event.isRequestModeration())
                 .state(event.getState().toString())
                 .title(event.getTitle())
@@ -57,5 +58,12 @@ public class EventMapper {
                 .title(event.getTitle())
                 .views(event.getViews())
                 .build();
+    }
+
+    private static String getPublishedOn(Event event, String pattern) {
+        if (Optional.ofNullable(event.getPublishedOn()).isPresent()) {
+            return event.getPublishedOn().format(DateTimeFormatter.ofPattern(pattern));
+        }
+        return null;
     }
 }

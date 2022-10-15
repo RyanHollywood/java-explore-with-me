@@ -11,7 +11,7 @@ stats:
 spring:
   profiles:
     active:
-      - dockerdb
+      - localdb
   jpa:
     properties:
       hibernate:
