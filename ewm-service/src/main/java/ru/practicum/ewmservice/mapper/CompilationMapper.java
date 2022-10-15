@@ -20,7 +20,7 @@ public class CompilationMapper {
 
     public static CompilationDto toCompilationDto(Compilation compilation, String pattern) {
         return CompilationDto.builder()
-                //.events(toEventShortDtos(compilation.getEvents(), pattern))
+                .events(toEventShortDtos(compilation.getEvents(), pattern))
                 .id(compilation.getId())
                 .pinned(compilation.isPinned())
                 .title(compilation.getTitle())

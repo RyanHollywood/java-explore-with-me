@@ -30,7 +30,7 @@ public class EventMapper {
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.toCategoryDto(event.getCategory()))
                 .confirmedRequests(event.getConfirmedRequests())
-                .createOn(event.getCreateOn().format(DateTimeFormatter.ofPattern(pattern)))
+                .createdOn(event.getCreatedOn().format(DateTimeFormatter.ofPattern(pattern)))
                 .description(event.getDescription())
                 .eventDate(event.getEventDate().format(DateTimeFormatter.ofPattern(pattern)))
                 .id(event.getId())

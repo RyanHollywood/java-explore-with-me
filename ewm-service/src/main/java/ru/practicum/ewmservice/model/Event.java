@@ -25,7 +25,7 @@ public class Event {
     private long confirmedRequests;
 
     @Column
-    private LocalDateTime createOn;
+    private LocalDateTime createdOn;
 
     @Column(length = 65555)
     private String description;

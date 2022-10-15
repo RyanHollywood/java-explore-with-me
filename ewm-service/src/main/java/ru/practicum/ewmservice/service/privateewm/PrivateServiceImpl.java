@@ -64,11 +64,11 @@ public class PrivateServiceImpl implements PrivateService {
         newEvent.setInitiator(getUser(userId));
         newEvent.setState(EventState.PENDING);
         Location newEventLocation = locationRepository.save(newEvent.getLocation());
-        newEvent.setLocation(newEventLocation);
         Category newEventCategory = getCategory(newEventDto.getCategory());
+        newEvent.setLocation(newEventLocation);
         newEvent.setCategory(newEventCategory);
+        newEvent.setCreatedOn(LocalDateTime.now());
         newEvent = eventRepository.save(newEvent);
-        newEvent.setCreateOn(LocalDateTime.now());
         log.debug("");
         return EventMapper.toEventFullDto(newEvent, pattern);
     }
