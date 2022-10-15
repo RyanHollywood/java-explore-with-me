@@ -82,7 +82,7 @@ public class PrivateServiceImpl implements PrivateService {
 
     @Override
     public EventFullDto cancelUserEvent(long userId, long eventId) {
-        Event eventToCancel = eventRepository.findById(userId).orElseThrow();
+        Event eventToCancel = getEvent(eventId);
         eventToCancel.setState(EventState.CANCELED);
         eventToCancel = eventRepository.save(eventToCancel);
         log.debug("");
@@ -91,7 +91,7 @@ public class PrivateServiceImpl implements PrivateService {
 
     @Override
     public List<ParticipationRequestDto> getEventRequests(long userId, long eventId) {
-        List<ParticipationRequest> requests = requestRepository.findAllByEvent(eventId);
+        List<ParticipationRequest> requests = requestRepository.findAllByEventId(eventId);
         log.debug("");
         return toParticipationRequestDtos(requests);
     }
@@ -116,7 +116,7 @@ public class PrivateServiceImpl implements PrivateService {
 
     @Override
     public List<ParticipationRequestDto> getUserRequests(long userId) {
-        List<ParticipationRequest> requests = requestRepository.findAllByRequester(userId);
+        List<ParticipationRequest> requests = requestRepository.findAllByRequesterId(userId);
         log.debug("");
         return toParticipationRequestDtos(requests);
     }
@@ -137,7 +137,7 @@ public class PrivateServiceImpl implements PrivateService {
     @Override
     public ParticipationRequestDto cancelUserRequest(long userId, long reqId) {
         ParticipationRequest requestToCancel = requestRepository.findById(reqId).orElseThrow();
-        requestToCancel.setStatus(ParticipationRequestStatus.REJECTED);
+        requestToCancel.setStatus(ParticipationRequestStatus.CANCELED);
         requestToCancel = requestRepository.save(requestToCancel);
         log.debug("");
         return ParticipationRequestMapper.toParticipationRequestDto(requestToCancel, pattern);
@@ -157,7 +157,6 @@ public class PrivateServiceImpl implements PrivateService {
 
     private Event updateEvent(Event event, UpdateEventRequest eventRequest) {
         event.setAnnotation(eventRequest.getAnnotation());
-        event.setCategory(categoryRepository.findById(eventRequest.getEventId()).orElseThrow());
         event.setDescription(eventRequest.getDescription());
         event.setEventDate(LocalDateTime.parse(eventRequest.getEventDate(), DateTimeFormatter.ofPattern(pattern)));
         event.setPaid(eventRequest.isPaid());
@@ -177,6 +176,13 @@ public class PrivateServiceImpl implements PrivateService {
         return categoryRepository.findById(catId).orElseThrow(() -> {
             log.warn("Category with id={} was not found.", catId);
             throw new NotFound("Category with id=" + catId + " was not found.");
+        });
+    }
+
+    private Event getEvent(long eventId) {
+        return eventRepository.findById(eventId).orElseThrow(() -> {
+            log.warn("Event with id={} was not found.", eventId);
+            throw new NotFound("Event with id=" + eventId + " was not found.");
         });
     }
 }

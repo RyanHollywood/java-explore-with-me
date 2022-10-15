@@ -207,11 +207,10 @@ public class AdminServiceImpl implements AdminService {
 
     private Event updateEvent(Event event, AdminUpdateEventRequestDto eventRequestDto) {
         event.setAnnotation(eventRequestDto.getAnnotation());
-        event.setCategory(categoryRepository.findById(eventRequestDto.getCategory()).orElseThrow());
+        event.setCategory(getCategory(eventRequestDto.getCategory()));
         event.setDescription(eventRequestDto.getDescription());
         event.setEventDate(LocalDateTime.parse(eventRequestDto.getEventDate(),
                 DateTimeFormatter.ofPattern(pattern)));
-        event.setLocation(LocationMapper.toLocation(eventRequestDto.getLocation()));
         event.setPaid(eventRequestDto.isPaid());
         event.setParticipantLimit(eventRequestDto.getParticipantLimit());
         event.setRequestModeration(eventRequestDto.isRequestModeration());

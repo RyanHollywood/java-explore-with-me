@@ -17,8 +17,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "category_id IN :categories AND " +
             "paid = :paid AND " +
             "AND confirmed_requests < participant_limit AND " +
-            "event_date BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) AND " +
-            "ORDER BY :sort;",
+            "event_date BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) " +
+            "ORDER BY :sort ASC;",
             nativeQuery = true)
     List<Event> getEventsPublicAvailable(String text, List<Long> categories, boolean paid, String rangeStart,
                                          String rangeEnd, String sort, PageRequest pageRequest);
@@ -28,8 +28,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE (LCASE(annotation) LIKE LCASE(CONCAT('%', :text, '%')) OR LCASE(description) LIKE LCASE(CONCAT('%', :text, '%'))) AND " +
             "category_id IN :categories AND " +
             "paid = :paid AND " +
-            "event_date BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) AND " +
-            "ORDER BY :sort;",
+            "event_date BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME) " +
+            "ORDER BY :sort ASC;",
             nativeQuery = true)
     List<Event> getEventsPublicAll(String text, List<Long> categories, boolean paid, String rangeStart,
                                    String rangeEnd, String sort, PageRequest pageRequest);

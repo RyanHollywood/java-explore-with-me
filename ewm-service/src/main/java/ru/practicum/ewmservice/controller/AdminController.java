@@ -34,7 +34,7 @@ public class AdminController {
         return adminService.getEvents(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
-    @PutMapping("/envents/{eventId}")
+    @PutMapping("/events/{eventId}")
     public EventFullDto putEvent(@PathVariable long eventId,
                                  @RequestBody AdminUpdateEventRequestDto requestDto) {
         return adminService.editEvent(eventId, requestDto);
@@ -72,7 +72,7 @@ public class AdminController {
 
     @GetMapping("/users")
     public List<UserDto> getUsers(@RequestParam List<Long> ids,
-                                  @RequestParam int from,
+                                  @RequestParam(defaultValue = "0") int from,
                                   @RequestParam(defaultValue = "10") int size) {
         return adminService.getUsers(ids, from, size);
     }

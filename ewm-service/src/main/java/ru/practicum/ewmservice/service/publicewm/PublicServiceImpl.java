@@ -52,11 +52,11 @@ public class PublicServiceImpl implements PublicService {
                                          boolean onlyAvailable, String sort, int from, int size, HttpServletRequest request) {
         List<Event> events;
         if (onlyAvailable) {
-            events = eventRepository.getEventsPublicAvailable(text, categories, paid, rangeStart, rangeEnd, sort,
+            events = eventRepository.getEventsPublicAvailable(text, categories, paid, rangeStart, rangeEnd, sort.toLowerCase(),
                     PageRequest.of(from / size, size));
             log.debug("");
         } else {
-            events = eventRepository.getEventsPublicAll(text, categories, paid, rangeStart, rangeEnd, sort,
+            events = eventRepository.getEventsPublicAll(text, categories, paid, rangeStart, rangeEnd, sort.toLowerCase(),
                     PageRequest.of(from / size, size));
             log.debug("");
         }
