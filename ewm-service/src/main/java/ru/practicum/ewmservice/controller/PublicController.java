@@ -1,7 +1,6 @@
 package ru.practicum.ewmservice.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.ewmservice.client.StatsClient;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
@@ -9,7 +8,6 @@ import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.service.publicewm.PublicServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -18,7 +16,7 @@ public class PublicController {
 
     private final PublicServiceImpl publicService;
 
-    public PublicController(PublicServiceImpl publicService, StatsClient statsClient) {
+    public PublicController(PublicServiceImpl publicService) {
         this.publicService = publicService;
     }
 

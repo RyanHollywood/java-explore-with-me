@@ -1,6 +1,5 @@
 package ru.practicum.ewmservice.mapper;
 
-import org.springframework.beans.factory.annotation.Value;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
