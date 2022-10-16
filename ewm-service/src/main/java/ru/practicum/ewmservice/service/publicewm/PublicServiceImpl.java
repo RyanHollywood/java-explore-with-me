@@ -73,6 +73,9 @@ public class PublicServiceImpl implements PublicService {
                 log.debug("Events were found ordered by views.");
             }
         }
+        if (events.isEmpty()) {
+            throw new NotFound("No events matching the parameters were found.");
+        }
         statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         return toShortDtosList(events);
     }

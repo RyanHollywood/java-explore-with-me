@@ -50,6 +50,9 @@ public class AdminServiceImpl implements AdminService {
     public List<EventFullDto> getEvents(List<Long> users, List<String> states, List<Long> categories, String rangeStart,
                                         String rangeEnd, int from, int size) {
         List<Event> events = eventRepository.getEventsAdmin(users, states, categories, rangeStart, rangeEnd, PageRequest.of(from / size, size));
+        if (events.isEmpty()) {
+            throw new NotFound("No events matching the parameters were found.");
+        }
         log.debug("Events were found.");
         return toEventFullDtos(events);
     }

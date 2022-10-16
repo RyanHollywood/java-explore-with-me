@@ -47,6 +47,9 @@ public class PrivateServiceImpl implements PrivateService {
     @Override
     public List<EventShortDto> getEvents(long userId, int from, int size) {
         List<Event> events = eventRepository.findEventsByInitiatorId(userId, PageRequest.of(from / size, size));
+        if (events.isEmpty()) {
+            throw new NotFound("No events matching the parameters were found.");
+        }
         log.debug("Events by user id={} were found.", userId);
         return toEventShortDtos(events);
     }
