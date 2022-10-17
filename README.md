@@ -2,7 +2,7 @@
 Template repository for ExploreWithMe project.
 
 ### ***Pull-request***:  
-https://github.com/RyanHollywood/java-explore-with-me/pull/3
+https://github.com/RyanHollywood/java-explore-with-me/pull/4
 
 
 Change profiles in ewm-service and stats-server in application.yml if needed.  
