@@ -58,9 +58,6 @@ public class AdminServiceImpl implements AdminService {
         LocalDateTime start = LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern(pattern));
         LocalDateTime end = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern(pattern));
         List<Event> events = eventRepository.getEventsAdmin(users, statesNum, categories, start, end, PageRequest.of(from / size, size));
-        if (events.isEmpty()) {
-            throw new NotFound("No events matching the parameters were found.");
-        }
         log.debug("Events were found.");
         return toEventFullDtos(events);
     }

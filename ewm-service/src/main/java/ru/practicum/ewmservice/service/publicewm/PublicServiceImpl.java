@@ -25,6 +25,7 @@ import ru.practicum.ewmservice.storage.EventRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,27 +57,24 @@ public class PublicServiceImpl implements PublicService {
         List<Event> events = new ArrayList<>();
         if (onlyAvailable) {
             if (sort.equals("EVENT_DATE")) {
-                events = eventRepository.getEventsPublicAvailableOrderByEventDate(text, categories, paid, rangeStart, rangeEnd,
-                        PageRequest.of(from / size, size));
+                events = eventRepository.getEventsPublicAvailableOrderByEventDate(text, categories, paid, parseDateTime(rangeStart),
+                        parseDateTime(rangeEnd), PageRequest.of(from / size, size));
                 log.debug("Available events were found ordered by event date.");
             } else if (sort.equals("VIEWS")) {
-                events = eventRepository.getEventsPublicAvailableOrderByViews(text, categories, paid, rangeStart, rangeEnd,
-                        PageRequest.of(from / size, size));
+                events = eventRepository.getEventsPublicAvailableOrderByViews(text, categories, paid, parseDateTime(rangeStart),
+                        parseDateTime(rangeEnd), PageRequest.of(from / size, size));
                 log.debug("Available events were found ordered by views.");
             }
         } else {
             if (sort.equals("EVENT_DATE")) {
-                events = eventRepository.getEventsPublicAllOrderByEventDate(text, categories, paid, rangeStart, rangeEnd,
-                        PageRequest.of(from / size, size));
+                events = eventRepository.getEventsPublicAllOrderByEventDate(text, categories, paid, parseDateTime(rangeStart),
+                        parseDateTime(rangeEnd), PageRequest.of(from / size, size));
                 log.debug("Events were found ordered by event date.");
             } else if (sort.equals("VIEWS")) {
-                events = eventRepository.getEventsPublicAllOrderByViews(text, categories, paid, rangeStart, rangeEnd,
-                        PageRequest.of(from / size, size));
+                events = eventRepository.getEventsPublicAllOrderByViews(text, categories, paid, parseDateTime(rangeStart),
+                        parseDateTime(rangeEnd), PageRequest.of(from / size, size));
                 log.debug("Events were found ordered by views.");
             }
-        }
-        if (events.isEmpty()) {
-            throw new NotFound("No events matching the parameters were found.");
         }
         statsClient.sendHit(request.getRequestURI(), request.getRemoteAddr(), LocalDateTime.now());
         return toShortDtosList(events);
@@ -126,6 +124,10 @@ public class PublicServiceImpl implements PublicService {
         });
         log.debug("Category with id={} was found.", catId);
         return CategoryMapper.toCategoryDto(category);
+    }
+
+    private LocalDateTime parseDateTime(String time) {
+        return LocalDateTime.parse(time, DateTimeFormatter.ofPattern(pattern));
     }
 
     private void viewsCounter(Event event) {
