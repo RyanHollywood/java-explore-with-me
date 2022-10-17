@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 public class Compilation {
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<Event> events;
 
     @Id
