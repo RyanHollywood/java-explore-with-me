@@ -1,6 +1,8 @@
 package ru.practicum.ewmservice.model;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,6 +35,7 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private long id;
 
     @ManyToOne

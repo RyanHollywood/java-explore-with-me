@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.category.NewCategoryDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional
 public class AdminServiceImpl implements AdminService {
 
     private final EventRepository eventRepository;
@@ -48,6 +50,7 @@ public class AdminServiceImpl implements AdminService {
         this.pattern = pattern;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<EventFullDto> getEvents(List<Long> users, List<String> states, List<Long> categories, String rangeStart,
                                         String rangeEnd, int from, int size) {
@@ -95,13 +98,13 @@ public class AdminServiceImpl implements AdminService {
         return EventMapper.toEventFullDto(eventToReject, pattern);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public CategoryDto getCategoryById(long catId) {
         Category category = getCategory(catId);
         log.debug("Category with id={} was found.", catId);
         return CategoryMapper.toCategoryDto(category);
     }
-
 
     @Override
     public CategoryDto updateCategory(CategoryDto categoryDto) {
@@ -127,6 +130,7 @@ public class AdminServiceImpl implements AdminService {
         log.debug("Category with id={} was deleted.", catId);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<UserDto> getUsers(List<Long> ids, int from, int size) {
         List<User> users = userRepository.findByIdIn(ids, PageRequest.of(from / size, size));

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmservice.client.StatsClient;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 public class PublicServiceImpl implements PublicService {
 
     private final StatsClient statsClient;

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 public class PrivateServiceImpl implements PrivateService {
 
     private final EventRepository eventRepository;
@@ -54,6 +56,7 @@ public class PrivateServiceImpl implements PrivateService {
         return toEventShortDtos(events);
     }
 
+    @Transactional
     @Override
     public EventFullDto updateEvent(long userId, UpdateEventRequest eventRequest) {
         Event eventToUpdate = getEvent(eventRequest.getEventId());
@@ -63,6 +66,7 @@ public class PrivateServiceImpl implements PrivateService {
         return EventMapper.toEventFullDto(eventToUpdate, pattern);
     }
 
+    @Transactional
     @Override
     public EventFullDto postEvent(long userId, NewEventDto newEventDto) {
         Event newEvent = EventMapper.fromNewEventDto(newEventDto, pattern);
@@ -89,6 +93,7 @@ public class PrivateServiceImpl implements PrivateService {
         return EventMapper.toEventFullDto(event, pattern);
     }
 
+    @Transactional
     @Override
     public EventFullDto cancelUserEvent(long userId, long eventId) {
         Event eventToCancel = getEvent(eventId);
@@ -107,6 +112,7 @@ public class PrivateServiceImpl implements PrivateService {
         return toParticipationRequestDtos(requests);
     }
 
+    @Transactional
     @Override
     public ParticipationRequestDto confirmEventRequest(long userId, long eventId, long reqId) {
         ParticipationRequest requestToConfirm = getRequest(reqId);
@@ -123,6 +129,7 @@ public class PrivateServiceImpl implements PrivateService {
         return ParticipationRequestMapper.toParticipationRequestDto(requestToConfirm, pattern);
     }
 
+    @Transactional
     @Override
     public ParticipationRequestDto rejectEventRequest(long userId, long eventId, long reqId) {
         ParticipationRequest requestToReject = getRequest(reqId);
@@ -139,6 +146,7 @@ public class PrivateServiceImpl implements PrivateService {
         return toParticipationRequestDtos(requests);
     }
 
+    @Transactional
     @Override
     public ParticipationRequestDto postUserRequest(long userId, long eventId) {
         ParticipationRequest newRequest = ParticipationRequest.builder()
@@ -159,6 +167,7 @@ public class PrivateServiceImpl implements PrivateService {
         return ParticipationRequestMapper.toParticipationRequestDto(newRequest, pattern);
     }
 
+    @Transactional
     @Override
     public ParticipationRequestDto cancelUserRequest(long userId, long reqId) {
         ParticipationRequest requestToCancel = getRequest(reqId);
