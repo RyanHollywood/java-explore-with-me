@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.practicum.ewmservice.model.Event;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -62,9 +63,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE initiator_id IN :users AND " +
             "state IN :states AND " +
             "category_id IN :categories AND " +
-            "event_date BETWEEN CAST(:rangeStart AS DATETIME) AND CAST(:rangeEnd AS DATETIME)",
+            "event_date BETWEEN :rangeStart AND :rangeEnd",
             nativeQuery = true)
-    List<Event> getEventsAdmin(List<Long> users, List<String> states, List<Long> categories, String rangeStart, String rangeEnd,
+    List<Event> getEventsAdmin(List<Long> users, List<Integer> states, List<Long> categories, LocalDateTime rangeStart, LocalDateTime rangeEnd,
                                PageRequest pageRequest);
 
     List<Event> findEventsByInitiatorId(long userId, PageRequest pageRequest);

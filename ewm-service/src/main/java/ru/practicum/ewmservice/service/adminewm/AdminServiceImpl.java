@@ -54,7 +54,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<EventFullDto> getEvents(List<Long> users, List<String> states, List<Long> categories, String rangeStart,
                                         String rangeEnd, int from, int size) {
-        List<Event> events = eventRepository.getEventsAdmin(users, states, categories, rangeStart, rangeEnd, PageRequest.of(from / size, size));
+        List<Integer> statesNum = states.stream().map(state -> EventState.valueOf(state).ordinal()).collect(Collectors.toList());
+        LocalDateTime start = LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern(pattern));
+        LocalDateTime end = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern(pattern));
+        List<Event> events = eventRepository.getEventsAdmin(users, statesNum, categories, start, end, PageRequest.of(from / size, size));
         if (events.isEmpty()) {
             throw new NotFound("No events matching the parameters were found.");
         }
