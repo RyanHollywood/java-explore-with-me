@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 public class Hit {
     private String app;
     private String uri;
