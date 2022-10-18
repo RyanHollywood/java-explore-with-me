@@ -2,6 +2,7 @@ package ru.practicum.ewmservice.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewmservice.dto.comment.CommentDto;
+import ru.practicum.ewmservice.dto.comment.NewCommentDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
@@ -91,26 +92,28 @@ public class PrivateController {
 
     @PostMapping("/{userId}/events/{eventId}/comments")
     public CommentDto postComment(@PathVariable long userId,
-                                  @PathVariable long eventId) {
-        return null;
+                                  @PathVariable long eventId,
+                                  @RequestBody NewCommentDto newCommentDto) {
+        return privateService.postComment(userId, eventId, newCommentDto);
     }
 
     @GetMapping("/{userId}/events/{eventId}/comments")
     public List<CommentDto> getComments(@PathVariable long userId,
                                         @PathVariable long eventId) {
-        return null;
+        return privateService.getComments(userId, eventId);
     }
 
     @GetMapping("/{userId}/events/{eventId}/comments/{comId}")
     public CommentDto getComment(@PathVariable long userId,
                                  @PathVariable long eventId,
                                  @PathVariable long comId) {
-        return null;
+        return privateService.getComment(userId, eventId, comId);
     }
 
     @DeleteMapping("/{userId}/events/{eventId}/comments/{comId}")
     public void deleteComment(@PathVariable long userId,
                                  @PathVariable long eventId,
                                  @PathVariable long comId) {
+        privateService.deleteComment(userId, eventId, comId);
     }
 }
