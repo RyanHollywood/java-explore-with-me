@@ -15,7 +15,6 @@ import ru.practicum.ewmservice.dto.event.AdminUpdateEventRequestDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.user.NewUserRequest;
 import ru.practicum.ewmservice.dto.user.UserDto;
-import ru.practicum.ewmservice.exception.model.BadRequest;
 import ru.practicum.ewmservice.exception.model.NotFound;
 import ru.practicum.ewmservice.mapper.*;
 import ru.practicum.ewmservice.model.*;
