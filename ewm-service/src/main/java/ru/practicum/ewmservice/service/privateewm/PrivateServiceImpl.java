@@ -196,7 +196,7 @@ public class PrivateServiceImpl implements PrivateService {
     public List<CommentDto> getComments(long userId, long eventId) {
         Event event = getEvent(eventId);
         List<Comment> comments = commentRepository.findAllByEvent(event);
-        log.debug("Comments to event id={} were found", eventId);
+        log.debug("Comments to event with id={} were found", eventId);
         return toCommentDtos(comments);
     }
 
@@ -216,6 +216,7 @@ public class PrivateServiceImpl implements PrivateService {
             throw new BadRequest("User cannot delete other user comments");
         }
         commentRepository.deleteById(comId);
+        log.debug("Comment with id:{} was deleted", comId);
     }
 
     private void viewsCounter(Event event) {

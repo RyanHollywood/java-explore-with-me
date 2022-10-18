@@ -122,22 +122,23 @@ public class AdminController {
 
     @GetMapping("/events/{eventId}/comments")
     public List<CommentDto> getComments(@PathVariable long eventId) {
-        return null;
+        return adminService.getComments(eventId);
     }
 
     @GetMapping("/users/{userId}/comments")
     public List<CommentDto> getUserComments(@PathVariable long userId) {
-        return null;
+        return adminService.getUserComments(userId);
     }
 
     @GetMapping("/events/{eventId}/comments/{comId}")
     public CommentDto getComment(@PathVariable long eventId,
                                  @PathVariable long comId) {
-        return null;
+        return adminService.getComment(eventId, comId);
     }
 
     @DeleteMapping("/events/{eventId}/comments/{comId}")
     public void deleteComment(@PathVariable long eventId,
                               @PathVariable long comId) {
+        adminService.deleteComment(eventId, comId);
     }
 }
