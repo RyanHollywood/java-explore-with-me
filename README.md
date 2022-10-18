@@ -1,13 +1,6 @@
 # java-explore-with-me
 Template repository for ExploreWithMe project.
 
-### ***Pull-request***:  
-https://github.com/RyanHollywood/java-explore-with-me/pull/4
-
 
 Change profiles in ewm-service and stats-server in application.yml if needed.  
 Use 'localdb' profile for local database and 'dockerdb' profile for docker database.
-
-*Роза, здравствуйте!  
-Пришлось закомментировать некоторые проверки данных, чтобы тесты прошли.  
-Честно, самые непонятные тесты за весь курс.*

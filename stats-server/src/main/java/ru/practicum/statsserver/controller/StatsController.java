@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 public class StatsController {
 
-    final HitServiceImpl eventService;
+    private final HitServiceImpl eventService;
 
     public StatsController(HitServiceImpl eventService) {
         this.eventService = eventService;

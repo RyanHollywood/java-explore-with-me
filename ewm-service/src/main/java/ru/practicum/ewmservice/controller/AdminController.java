@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    final AdminServiceImpl adminService;
+    private final AdminServiceImpl adminService;
 
     public AdminController(AdminServiceImpl adminService) {
         this.adminService = adminService;

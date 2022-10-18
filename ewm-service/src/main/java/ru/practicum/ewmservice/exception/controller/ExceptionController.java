@@ -20,28 +20,12 @@ public class ExceptionController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.OK)
     public String handleException(final NotFound exception) {
-        /*
-        return ApiErrorDto.builder()
-                .status("NOT_FOUND")
-                .reason("The required object was not found.")
-                .message(exception.getMessage())
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern(pattern)))
-                .build();
-         */
         return "null";
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.OK)
     public String handleException(final BadRequest exception) {
-        /*
-        return ApiErrorDto.builder()
-                .status("FORBIDDEN")
-                .reason("For the requested operation the conditions are not met.")
-                .message(exception.getMessage())
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern(pattern)))
-                .build();
-         */
         return "null";
     }
 }

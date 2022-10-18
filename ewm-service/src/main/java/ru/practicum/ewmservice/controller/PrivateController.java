@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class PrivateController {
 
-    final PrivateServiceImpl privateService;
+    private final PrivateServiceImpl privateService;
 
     public PrivateController(PrivateServiceImpl privateService) {
         this.privateService = privateService;

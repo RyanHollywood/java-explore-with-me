@@ -75,16 +75,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public EventFullDto publishEvent(long eventId) {
         Event eventToPublish = getEvent(eventId);
-        /*
-        if (eventToPublish.getState().equals(EventState.PENDING) && Duration.between(eventToPublish.getEventDate(),
-                LocalDateTime.now()).toHours() > 1) {
-            eventToPublish.setState(EventState.PUBLISHED);
-            eventToPublish.setPublishedOn(LocalDateTime.now());
-            eventRepository.save(eventToPublish);
-        } else {
-            throw new BadRequest("Event must be in PENDING state and starting more than hour from beginning.");
-        }
-         */
         eventToPublish.setState(EventState.PUBLISHED);
         eventToPublish.setPublishedOn(LocalDateTime.now());
         eventRepository.save(eventToPublish);
@@ -95,13 +85,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public EventFullDto rejectEvent(long eventId) {
         Event eventToReject = getEvent(eventId);
-        /*
-        if (eventToReject.getState().equals(EventState.PENDING)) {
-            eventToReject.setState(EventState.CANCELED);
-        } else {
-            throw new BadRequest("Event must be in PENDING state.");
-        }
-         */
         eventToReject.setState(EventState.CANCELED);
         log.debug("Event with id={} was rejected.", eventId);
         return EventMapper.toEventFullDto(eventToReject, pattern);
