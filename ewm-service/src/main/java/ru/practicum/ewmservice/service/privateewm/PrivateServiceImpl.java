@@ -179,6 +179,7 @@ public class PrivateServiceImpl implements PrivateService {
         return ParticipationRequestMapper.toParticipationRequestDto(requestToCancel, pattern);
     }
 
+    @Transactional
     @Override
     public CommentDto postComment(long userId, long eventId, NewCommentDto newCommentDto) {
         User author = getUser(userId);
@@ -208,15 +209,17 @@ public class PrivateServiceImpl implements PrivateService {
         return CommentMapper.toCommentDto(comment, pattern);
     }
 
+    @Transactional
     @Override
     public void deleteComment(long userId, long eventId, long comId) {
         getEvent(eventId);
         Comment comment = getComment(comId);
         if (comment.getAuthor().getId() != userId) {
+            log.warn("User cannot delete other user comments.");
             throw new BadRequest("User cannot delete other user comments");
         }
         commentRepository.deleteById(comId);
-        log.debug("Comment with id:{} was deleted", comId);
+        log.debug("Comment with id={} was deleted", comId);
     }
 
     private void viewsCounter(Event event) {
