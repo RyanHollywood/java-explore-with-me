@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Comment {
     private long id;
-    private long eventId;
-    private long author;
+    private Event event;
+    private User author;
     private String text;
     private LocalDateTime created;
 }

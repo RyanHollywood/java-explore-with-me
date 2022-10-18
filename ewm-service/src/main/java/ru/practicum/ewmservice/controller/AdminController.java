@@ -3,6 +3,7 @@ package ru.practicum.ewmservice.controller;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.category.NewCategoryDto;
+import ru.practicum.ewmservice.dto.comment.CommentDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
 import ru.practicum.ewmservice.dto.compilation.NewCompilationDto;
 import ru.practicum.ewmservice.dto.event.AdminUpdateEventRequestDto;
@@ -117,5 +118,26 @@ public class AdminController {
     @PatchMapping("/compilations/{compId}/pin")
     public void pinCompilation(@PathVariable long compId) {
         adminService.pinCompilation(compId);
+    }
+
+    @GetMapping("/events/{eventId}/comments")
+    public List<CommentDto> getComments(@PathVariable long eventId) {
+        return null;
+    }
+
+    @GetMapping("/users/{userId}/comments")
+    public List<CommentDto> getUserComments(@PathVariable long userId) {
+        return null;
+    }
+
+    @GetMapping("/events/{eventId}/comments/{comId}")
+    public CommentDto getComment(@PathVariable long eventId,
+                                 @PathVariable long comId) {
+        return null;
+    }
+
+    @DeleteMapping("/events/{eventId}/comments/{comId}")
+    public void deleteComment(@PathVariable long eventId,
+                              @PathVariable long comId) {
     }
 }
