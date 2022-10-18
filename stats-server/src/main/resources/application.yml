@@ -1,0 +1,49 @@
+logging:
+  level:
+    ru:
+      practicum:
+        statsserver: debug
+server:
+  port: '9090'
+spring:
+  profiles:
+    active:
+      - dockerdb
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+  banner:
+    location: 'classpath:stats_banner.txt'
+  output:
+    ansi:
+      enabled: always
+date:
+  time:
+    pattern: 'yyyy-MM-dd HH:mm:ss'
+
+---
+
+spring:
+  datasource:
+    url: 'jdbc:mariadb://${DB_HOST}:3306/${DB_NAME}'
+    username: '${USER}'
+    password: '${PASSWORD}'
+  config:
+    activate:
+      on-profile: dockerdb
+
+---
+
+spring:
+  datasource:
+    url: 'jdbc:mariadb://localhost:3306/stats'
+    username: stats_user
+    password: stats_password
+  config:
+    activate:
+      on-profile: localdb

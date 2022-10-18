@@ -1,15 +1,63 @@
 version: '3.1'
 services:
   stats-server:
+    container_name: stats-server
+    build:
+      dockerfile: Dockerfile-statsserver
+      context: ./stats-server
     ports:
       - "9090:9090"
+    depends_on:
+      - stats-db
+    environment:
+      - DB_HOST=stats-db
+      - DB_NAME=${STATS_DB_NAME}
+      - USER=${STATS_DB_USER}
+      - PASSWORD=${STATS_DB_USER_PASSWORD}
 
   stats-db:
-    image: postgres:14-alpine
+    container_name: stats-db
+    image: mariadb:10.5
+    ports:
+      - "9091:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=${STATS_DB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${STATS_DB_NAME}
+      - MARIADB_USER=${STATS_DB_USER}
+      - MARIADB_PASSWORD=${STATS_DB_USER_PASSWORD}
+    healthcheck:
+      test: [ "CMD", "mysql", "-u", "${STATS_DB_USER}", "-h", "stats-db", "-p${STATS_DB_USER_PASSWORD}", "${STATS_DB_NAME}"]
+      timeout: 45s
+      interval: 10s
+      retries: 10
 
   ewm-service:
+    container_name: ewm-service
+    build:
+      dockerfile: Dockerfile-ewmservice
+      context: ./ewm-service
     ports:
       - "8080:8080"
+    depends_on:
+      - ewm-db
+    environment:
+      - DB_HOST=ewm-db
+      - DB_NAME=${EWM_DB_NAME}
+      - USER=${EWM_DB_USER}
+      - PASSWORD=${EWM_DB_USER_PASSWORD}
 
   ewm-db:
-    image: postgres:14-alpine
+    container_name: ewm-db
+    image: mariadb:10.5
+    ports:
+      - "8081:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=${EWM_DB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${EWM_DB_NAME}
+      - MARIADB_USER=${EWM_DB_USER}
+      - MARIADB_PASSWORD=${EWM_DB_USER_PASSWORD}
+    healthcheck:
+      test: [ "CMD", "mysql", "-u", "${EWM_DB_USER}", "-h", "ewm-db", "-p${EWM_DB_USER_PASSWORD}", "${EWM_DB_NAME}"]
+      timeout: 45s
+      interval: 10s
+      retries: 10

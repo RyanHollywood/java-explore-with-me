@@ -1,0 +1,4986 @@
+{
+	"info": {
+		"_postman_id": "12d3c26f-2f71-40b3-ab44-9ba5848c459e",
+		"name": "stats-server-tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20818490"
+	},
+	"item": [
+		{
+			"name": "hits",
+			"item": [
+				{
+					"name": "app0",
+					"item": [
+						{
+							"name": "uri0",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri0\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "uri1",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri1\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "uri2",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri2\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.variables.set(\"app\", \"app0\")"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "app1",
+					"item": [
+						{
+							"name": "uri0",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri0\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "uri1",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri1\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "uri2",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri2\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.variables.set(\"app\", \"app1\")"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "app2",
+					"item": [
+						{
+							"name": "uri0",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri0\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "uri1",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri1\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "uri2",
+							"item": [
+								{
+									"name": "ip0",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.0\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip1",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.1\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "ip2",
+									"item": [
+										{
+											"name": "time0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:00\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "time2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", function () {\r",
+															"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+															"});\r",
+															"pm.test(\"Test save hit information\", function () {\r",
+															"    var responseMessage = pm.response.text();\r",
+															"    pm.expect(responseMessage).to.eql(\"Информация сохранена\");\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Accept",
+														"value": "*/*",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"id\": 0,\r\n    \"app\": \"{{app}}\",\r\n    \"uri\": \"{{uri}}\",\r\n    \"ip\": \"{{ip}}\",\r\n    \"timestamp\": \"2022-01-01 00:00:02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{stats-server-url}}/hit",
+													"host": [
+														"{{stats-server-url}}"
+													],
+													"path": [
+														"hit"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.variables.set(\"ip\", \"0.0.0.2\")"
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.variables.set(\"uri\", \"uri2\")"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.variables.set(\"app\", \"app2\")"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "stats-server-url",
+			"value": "http://localhost:9090",
+			"type": "string"
+		}
+	]
+}
