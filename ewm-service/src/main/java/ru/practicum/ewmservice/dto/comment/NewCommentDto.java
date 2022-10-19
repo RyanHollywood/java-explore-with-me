@@ -8,7 +8,5 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class NewCommentDto {
-    private long author_id;
-    private long eventId;
     private String text;
 }
