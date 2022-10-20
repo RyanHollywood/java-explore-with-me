@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.ewmservice.dto.comment.CommentDto;
+import ru.practicum.ewmservice.dto.comment.NewCommentDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
@@ -12,6 +14,7 @@ import ru.practicum.ewmservice.dto.event.UpdateEventRequest;
 import ru.practicum.ewmservice.dto.request.ParticipationRequestDto;
 import ru.practicum.ewmservice.exception.model.BadRequest;
 import ru.practicum.ewmservice.exception.model.NotFound;
+import ru.practicum.ewmservice.mapper.CommentMapper;
 import ru.practicum.ewmservice.mapper.EventMapper;
 import ru.practicum.ewmservice.mapper.ParticipationRequestMapper;
 import ru.practicum.ewmservice.model.*;
@@ -33,16 +36,18 @@ public class PrivateServiceImpl implements PrivateService {
     private final UserRepository userRepository;
     private final ParticipationRequestRepository requestRepository;
     private final LocationRepository locationRepository;
+    private final CommentRepository commentRepository;
     private final ParticipationRequestStatus defaultStatus = ParticipationRequestStatus.PENDING;
     private final String pattern;
 
     public PrivateServiceImpl(EventRepository eventRepository, CategoryRepository categoryRepository, UserRepository userRepository,
-                              ParticipationRequestRepository requestRepository, LocationRepository locationRepository, @Value("${date.time.pattern}") String pattern) {
+                              ParticipationRequestRepository requestRepository, LocationRepository locationRepository, CommentRepository commentRepository, @Value("${date.time.pattern}") String pattern) {
         this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.requestRepository = requestRepository;
         this.locationRepository = locationRepository;
+        this.commentRepository = commentRepository;
         this.pattern = pattern;
     }
 
@@ -174,6 +179,49 @@ public class PrivateServiceImpl implements PrivateService {
         return ParticipationRequestMapper.toParticipationRequestDto(requestToCancel, pattern);
     }
 
+    @Transactional
+    @Override
+    public CommentDto postComment(long userId, long eventId, NewCommentDto newCommentDto) {
+        User author = getUser(userId);
+        Event event = getEvent(eventId);
+        Comment comment = CommentMapper.toComment(newCommentDto);
+        comment.setEvent(event);
+        comment.setAuthor(author);
+        comment.setCreated(LocalDateTime.now());
+        comment = commentRepository.save(comment);
+        log.debug("Comment from user id={} to event id={} with id={} was posted.", userId, event, comment.getId());
+        return CommentMapper.toCommentDto(comment, pattern);
+    }
+
+    @Override
+    public List<CommentDto> getComments(long userId, long eventId) {
+        Event event = getEvent(eventId);
+        List<Comment> comments = commentRepository.findAllByEvent(event);
+        log.debug("Comments to event with id={} were found", eventId);
+        return toCommentDtos(comments);
+    }
+
+    @Override
+    public CommentDto getComment(long userId, long eventId, long comId) {
+        getEvent(eventId);
+        Comment comment = getComment(comId);
+        log.debug("Comment with id={} was found.", comId);
+        return CommentMapper.toCommentDto(comment, pattern);
+    }
+
+    @Transactional
+    @Override
+    public void deleteComment(long userId, long eventId, long comId) {
+        getEvent(eventId);
+        Comment comment = getComment(comId);
+        if (comment.getAuthor().getId() != userId) {
+            log.warn("User cannot delete other user comments.");
+            throw new BadRequest("User cannot delete other user comments");
+        }
+        commentRepository.deleteById(comId);
+        log.debug("Comment with id={} was deleted", comId);
+    }
+
     private void viewsCounter(Event event) {
         event.setViews(event.getViews() + 1);
         log.debug("Event with id={} views counter increased.", event.getId());
@@ -189,6 +237,12 @@ public class PrivateServiceImpl implements PrivateService {
     private List<ParticipationRequestDto> toParticipationRequestDtos(List<ParticipationRequest> requests) {
         return requests.stream()
                 .map(request -> ParticipationRequestMapper.toParticipationRequestDto(request, pattern))
+                .collect(Collectors.toList());
+    }
+
+    private List<CommentDto> toCommentDtos(List<Comment> comments) {
+        return comments.stream()
+                .map(comment -> CommentMapper.toCommentDto(comment, pattern))
                 .collect(Collectors.toList());
     }
 
@@ -227,6 +281,13 @@ public class PrivateServiceImpl implements PrivateService {
         return requestRepository.findById(reqId).orElseThrow(() -> {
             log.warn("Participation request with id={} was not found.", reqId);
             throw new NotFound("Participation request with id=" + reqId + " was not found.");
+        });
+    }
+
+    private Comment getComment(long comId) {
+        return commentRepository.findById(comId).orElseThrow(() -> {
+            log.warn("Comment with id={} was not found.", comId);
+            throw new NotFound("Comment with id=" + comId + " was not found.");
         });
     }
 }

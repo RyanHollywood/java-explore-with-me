@@ -1,5 +1,7 @@
 package ru.practicum.ewmservice.service.privateewm;
 
+import ru.practicum.ewmservice.dto.comment.CommentDto;
+import ru.practicum.ewmservice.dto.comment.NewCommentDto;
 import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.event.EventShortDto;
 import ru.practicum.ewmservice.dto.event.NewEventDto;
@@ -31,4 +33,12 @@ public interface PrivateService {
     ParticipationRequestDto postUserRequest(long userId, long eventId);
 
     ParticipationRequestDto cancelUserRequest(long userId, long reqId);
+
+    CommentDto postComment(long userId, long eventId, NewCommentDto newCommentDto);
+
+    List<CommentDto> getComments(long userId, long eventId);
+
+    CommentDto getComment(long userId, long eventId, long comId);
+
+    void deleteComment(long userId, long eventId, long comId);
 }

@@ -2,6 +2,7 @@ package ru.practicum.ewmservice.service.adminewm;
 
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.category.NewCategoryDto;
+import ru.practicum.ewmservice.dto.comment.CommentDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
 import ru.practicum.ewmservice.dto.compilation.NewCompilationDto;
 import ru.practicum.ewmservice.dto.event.AdminUpdateEventRequestDto;
@@ -46,4 +47,12 @@ public interface AdminService {
     void unpinCompilation(long compId);
 
     void pinCompilation(long compId);
+
+    List<CommentDto> getComments(long eventId);
+
+    List<CommentDto> getUserComments(long userId);
+
+    CommentDto getComment(long eventId, long comId);
+
+    void deleteComment(long eventId, long comId);
 }

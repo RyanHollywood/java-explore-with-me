@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmservice.dto.category.CategoryDto;
 import ru.practicum.ewmservice.dto.category.NewCategoryDto;
+import ru.practicum.ewmservice.dto.comment.CommentDto;
 import ru.practicum.ewmservice.dto.compilation.CompilationDto;
 import ru.practicum.ewmservice.dto.compilation.NewCompilationDto;
 import ru.practicum.ewmservice.dto.event.AdminUpdateEventRequestDto;
@@ -15,15 +16,9 @@ import ru.practicum.ewmservice.dto.event.EventFullDto;
 import ru.practicum.ewmservice.dto.user.NewUserRequest;
 import ru.practicum.ewmservice.dto.user.UserDto;
 import ru.practicum.ewmservice.exception.model.NotFound;
-import ru.practicum.ewmservice.mapper.CategoryMapper;
-import ru.practicum.ewmservice.mapper.CompilationMapper;
-import ru.practicum.ewmservice.mapper.EventMapper;
-import ru.practicum.ewmservice.mapper.UserMapper;
+import ru.practicum.ewmservice.mapper.*;
 import ru.practicum.ewmservice.model.*;
-import ru.practicum.ewmservice.storage.CategoryRepository;
-import ru.practicum.ewmservice.storage.CompilationRepository;
-import ru.practicum.ewmservice.storage.EventRepository;
-import ru.practicum.ewmservice.storage.UserRepository;
+import ru.practicum.ewmservice.storage.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,15 +34,17 @@ public class AdminServiceImpl implements AdminService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final CompilationRepository compilationRepository;
+    private final CommentRepository commentRepository;
     private final String pattern;
 
     @Autowired
     public AdminServiceImpl(EventRepository eventRepository, CategoryRepository categoryRepository, UserRepository userRepository,
-                            CompilationRepository compilationRepository, @Value("${date.time.pattern}") String pattern) {
+                            CompilationRepository compilationRepository, CommentRepository commentRepository, @Value("${date.time.pattern}") String pattern) {
         this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.compilationRepository = compilationRepository;
+        this.commentRepository = commentRepository;
         this.pattern = pattern;
     }
 
@@ -142,7 +139,7 @@ public class AdminServiceImpl implements AdminService {
     public void deleteUser(long userId) {
         getUser(userId);
         userRepository.deleteById(userId);
-        log.debug("User id={} deleted.", userId);
+        log.debug("User with id={} deleted.", userId);
     }
 
     @Override
@@ -158,7 +155,7 @@ public class AdminServiceImpl implements AdminService {
     public void deleteCompilation(long compId) {
         getCompilation(compId);
         compilationRepository.deleteById(compId);
-        log.debug("Compilation id:{} was deleted", compId);
+        log.debug("Compilation with id:{} was deleted", compId);
     }
 
     @Override
@@ -200,6 +197,38 @@ public class AdminServiceImpl implements AdminService {
         log.debug("Compilation with id={} was pinned.", compId);
     }
 
+    @Override
+    public List<CommentDto> getComments(long eventId) {
+        Event event = getEvent(eventId);
+        List<Comment> comments = commentRepository.findAllByEvent(event);
+        log.debug("Comments to event with id={} were found", eventId);
+        return toCommentDtos(comments);
+    }
+
+    @Override
+    public List<CommentDto> getUserComments(long userId) {
+        User user = getUser(userId);
+        List<Comment> comments = commentRepository.findAllByAuthor(user);
+        log.debug("Comments from user with id={} were found", userId);
+        return toCommentDtos(comments);
+    }
+
+    @Override
+    public CommentDto getComment(long eventId, long comId) {
+        getEvent(eventId);
+        Comment comment = getComment(comId);
+        log.debug("Comment with id={} was found.", comId);
+        return CommentMapper.toCommentDto(comment, pattern);
+    }
+
+    @Override
+    public void deleteComment(long eventId, long comId) {
+        getEvent(eventId);
+        Comment comment = getComment(comId);
+        commentRepository.deleteById(comId);
+        log.debug("Comment with id:{} was deleted", comId);
+    }
+
     private List<EventFullDto> toEventFullDtos(List<Event> events) {
         return events.stream()
                 .map(event -> EventMapper.toEventFullDto(event, pattern))
@@ -234,6 +263,12 @@ public class AdminServiceImpl implements AdminService {
         return category;
     }
 
+    private List<CommentDto> toCommentDtos(List<Comment> comments) {
+        return comments.stream()
+                .map(comment -> CommentMapper.toCommentDto(comment, pattern))
+                .collect(Collectors.toList());
+    }
+
     private Event getEvent(long eventId) {
         return eventRepository.findById(eventId).orElseThrow(() -> {
             log.warn("Event with id={} was not found.", eventId);
@@ -259,6 +294,13 @@ public class AdminServiceImpl implements AdminService {
         return userRepository.findById(userId).orElseThrow(() -> {
             log.warn("User with id={} was not found.", userId);
             throw new NotFound("User with id=" + userId + " was not found.");
+        });
+    }
+
+    private Comment getComment(long comId) {
+        return commentRepository.findById(comId).orElseThrow(() -> {
+            log.warn("Comment with id={} was not found.", comId);
+            throw new NotFound("Comment with id=" + comId + " was not found.");
         });
     }
 }
